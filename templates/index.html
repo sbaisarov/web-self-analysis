@@ -1,0 +1,106 @@
+
+<html>
+<head>
+    <title>Корректировачный самоанализ РЦ &lt&ltЭволюция&gt&gt</title>
+    <style>
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f1f1f1;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+        }
+
+        .dropdown-content th {
+            min-width: 30px;
+        }
+
+        .active {
+            display: block;
+        }
+
+        .dropdown:hover .dropbtn {background-color:aquamarine}
+    </style>
+</head>
+<body>
+    <form>
+        <label>Ситуцация:</label><br>
+        <input type="text" name="situation" placeholder="Опишите Ситуацию"><br>
+        <button class="dropbtn">Чувства</button>
+        <div id="drop" class="dropdown">
+            <div class="dropdown-content">
+                <table style="border: 1px solid black;">
+                    <tr>
+                        <th class="dropbtn">Страх</th>
+                        <th>Грусть</th>
+                        <th>Гнев</th>
+                        <th>Радость</th>
+                        <th>Любовь</th>
+                    </tr>
+                    <div id="drop1" class="dropdown-content">
+                        {% for f1, f2, f3, f4, f5 in data %}
+                        <tr>
+                            <td>
+                                <input type="checkbox">
+                                <label>{{ f1 }}</label>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </div>
+                        <td>
+                            <input type="checkbox">
+                                <label>{{ f2 }}</label>
+                            </td>
+                            <td>
+                                <input type="checkbox">
+                                <label>{{ f3 }}</label>
+                            </td>
+                            <td>
+                                <input type="checkbox">
+                                <label>{{ f4 }}</label>
+                            </td>
+                            <td>
+                                <input type="checkbox">
+                                <label>{{ f5 }}</label>
+                            </td>
+                </table>
+            </div>
+    </div>
+    </form>
+    <script>
+        const input = document.getElementsByTagName('input')[0];
+    
+        input.addEventListener('focus', function() {
+            this.placeholder = ''; // Clear placeholder on focus
+        });
+    
+        input.addEventListener('blur', function() {
+            if (this.value === '') {
+                this.placeholder = 'Опишите Ситуацию'; // Restore placeholder if input is empty
+            }
+        });
+
+        const button = document.getElementsByClassName('dropbtn')[0];
+        const content = document.getElementsByClassName('dropdown-content')[0];
+        // Add a click event listener to the button
+        button.addEventListener('click', function(event) {
+            // Toggle the 'clicked' class on button click
+            event.preventDefault(); 
+            if (content.style.display == 'none') content.style.display = 'block';
+            else content.style.display = 'none';
+        });
+        
+        const th1 = document.getElementsByTagName('th')[0];
+        const content1 = document.getElementById('drop1');
+        // Add a click event listener to the button
+        th1.addEventListener('click', function(event) {
+            // Toggle the 'clicked' class on button click
+            event.preventDefault(); 
+            if (content1.style.display == 'none') content1.style.display = 'block';
+            else content1.style.display = 'none';
+        });
+    </script>
+</body>
+</html>
+
