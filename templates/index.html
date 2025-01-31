@@ -20,7 +20,11 @@
             display: block;
         }
 
-        .dropdown:hover .dropbtn {background-color:aquamarine}
+        .dropdown-content.active {
+            display: block;
+        }
+
+        .dropdown:hover .dropbtn1 {background-color:aquamarine}
     </style>
 </head>
 <body>
@@ -33,37 +37,63 @@
                 <table style="border: 1px solid black;">
                     <tr>
                         <th class="dropbtn">Страх</th>
-                        <th>Грусть</th>
-                        <th>Гнев</th>
-                        <th>Радость</th>
-                        <th>Любовь</th>
+                        <th class="dropbtn">Грусть</th>
+                        <th class="dropbtn">Гнев</th>
+                        <th class="dropbtn">Радость</th>
+                        <th class="dropbtn">Любовь</th>
                     </tr>
-                    <div id="drop1" class="dropdown-content">
-                        {% for f1, f2, f3, f4, f5 in data %}
-                        <tr>
-                            <td>
-                                <input type="checkbox">
-                                <label>{{ f1 }}</label>
-                            </td>
-                        </tr>
-                        {% endfor %}
-                    </div>
+                    <tr>
                         <td>
-                            <input type="checkbox">
-                                <label>{{ f2 }}</label>
-                            </td>
-                            <td>
-                                <input type="checkbox">
-                                <label>{{ f3 }}</label>
-                            </td>
-                            <td>
-                                <input type="checkbox">
-                                <label>{{ f4 }}</label>
-                            </td>
-                            <td>
-                                <input type="checkbox">
-                                <label>{{ f5 }}</label>
-                            </td>
+                            <div id="drop1" class="dropdown-content">
+                                {% for f1 in data[0] %}
+                                <div>
+                                    <input type="checkbox">
+                                    <label>{{ f1 }}</label>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </td>
+                        <td>
+                            <div id="drop2" class="dropdown-content">
+                                {% for f2 in data[1] %}
+                                <div>
+                                    <input type="checkbox">
+                                    <label>{{ f2 }}</label>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </td>
+                        <td>
+                            <div id="drop3" class="dropdown-content">
+                                {% for f3 in data[2] %}
+                                <div>
+                                    <input type="checkbox">
+                                    <label>{{ f3 }}</label>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </td>
+                        <td>
+                            <div id="drop4" class="dropdown-content">
+                                {% for f4 in data[3] %}
+                                <div>
+                                    <input type="checkbox">
+                                    <label>{{ f4 }}</label>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </td>
+                        <td>
+                            <div id="drop5" class="dropdown-content">
+                                {% for f5 in data[4] %}
+                                <div>
+                                    <input type="checkbox">
+                                    <label>{{ f5 }}</label>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </td>
+                    </tr>
                 </table>
             </div>
     </div>
@@ -93,13 +123,29 @@
         
         const th1 = document.getElementsByTagName('th')[0];
         const content1 = document.getElementById('drop1');
-        // Add a click event listener to the button
+        // Add a click event listener to the th1 element
         th1.addEventListener('click', function(event) {
-            // Toggle the 'clicked' class on button click
+            // Toggle the 'clicked' class on th1 element click
             event.preventDefault(); 
             if (content1.style.display == 'none') content1.style.display = 'block';
             else content1.style.display = 'none';
         });
+
+    const thElements = document.querySelectorAll('th.dropbtn');
+    const dropContents = document.querySelectorAll('.dropdown-content');
+
+    thElements.forEach((th, index) => {
+        th.addEventListener('click', function(event) {
+            event.preventDefault();
+            dropContents.forEach((content, contentIndex) => {
+                if (index === contentIndex) {
+                    content.classList.toggle('active');
+                } else {
+                    content.classList.remove('active');
+                }
+            });
+        });
+    });
     </script>
 </body>
 </html>
