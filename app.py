@@ -9,20 +9,22 @@ JOY = []
 HAPPINESS = []
 
 def fulfill_feelings(collection, br_n):
-    cnt = 0 # count of break lines
+    cnt = 0 # count of break li nes
     br_n_prev = br_n - 1
     take = False # append while take is true
     for line in feelings:
+        if line == '':
+            cnt += 1
+            if cnt == br_n:
+                break
+            continue
+        
         if cnt == br_n_prev:
             take = True
 
         if take:
             collection.append(line)
 
-        if line == '':
-            cnt += 1
-            if cnt == br_n:
-                break
 
 with open("feelings.txt", 'r', encoding='utf-8') as f:
     feelings = [i.strip() for i in f.readlines()]
@@ -35,6 +37,7 @@ with open("feelings.txt", 'r', encoding='utf-8') as f:
 
 @app.route('/')
 def main():
-    return render_template('index.html', data=data)
+    return render_template('index.html', FEAR=FEAR, SADNESS=SADNESS, ANGER=ANGER,
+                           JOY=JOY, HAPPINESS=HAPPINESS)
 
 app.run(reload=True)

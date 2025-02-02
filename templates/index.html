@@ -7,24 +7,43 @@
             display: none;
             position: absolute;
             background-color: #f1f1f1;
-            min-width: 160px;
+            min-width: 200px;
             box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
             z-index: 1;
         }
 
-        .dropdown-content th {
-            min-width: 30px;
+        .dropdown-content th:hover {
+            color: white;
         }
 
-        .active {
-            display: block;
+        .dropdown-content #fear:hover {
+            background-color: green;
+            box-shadow: 0 0 10px rgba(0, 128, 0, 0.5);
+        }
+        
+        .dropdown-content #sadness:hover {
+            background-color: purple;
+            box-shadow: 0 0 10px rgba(113, 9, 250, 0.99);
+        }
+        
+        .dropdown-content #anger:hover {
+            background-color: red;
+            box-shadow: 0 0 10px rgb(255, 17, 0);
+        }
+        
+        .dropdown-content #joy:hover {
+            background-color: orange;
+            box-shadow: 0 0 10px rgba(255, 136, 0, 0.98);
+        }
+
+        .dropdown-content #happiness:hover {
+            background-color: pink;
+            box-shadow: 0 0 10px rgba(255, 0, 140, 0.97);
         }
 
         .dropdown-content.active {
             display: block;
         }
-
-        .dropdown:hover .dropbtn1 {background-color:aquamarine}
     </style>
 </head>
 <body>
@@ -36,59 +55,59 @@
             <div class="dropdown-content">
                 <table style="border: 1px solid black;">
                     <tr>
-                        <th class="dropbtn">Страх</th>
-                        <th class="dropbtn">Грусть</th>
-                        <th class="dropbtn">Гнев</th>
-                        <th class="dropbtn">Радость</th>
-                        <th class="dropbtn">Любовь</th>
+                        <th id="fear" class="dropbtn1">Страх</th>
+                        <th id="sadness" class="dropbtn2">Грусть</th>
+                        <th id="anger" class="dropbtn3">Гнев</th>
+                        <th id="joy" class="dropbtn4">Радость</th>
+                        <th id="happiness" class="dropbtn5">Любовь</th>
                     </tr>
                     <tr>
                         <td>
                             <div id="drop1" class="dropdown-content">
-                                {% for f1 in data[0] %}
+                                {% for feeling in FEAR %}
                                 <div>
                                     <input type="checkbox">
-                                    <label>{{ f1 }}</label>
+                                    <label>{{ feeling }}</label>
                                 </div>
                                 {% endfor %}
                             </div>
                         </td>
                         <td>
                             <div id="drop2" class="dropdown-content">
-                                {% for f2 in data[1] %}
+                                {% for feeling in SADNESS %}
                                 <div>
                                     <input type="checkbox">
-                                    <label>{{ f2 }}</label>
+                                    <label>{{ feeling }}</label>
                                 </div>
                                 {% endfor %}
                             </div>
                         </td>
                         <td>
                             <div id="drop3" class="dropdown-content">
-                                {% for f3 in data[2] %}
+                                {% for feeling in ANGER %}
                                 <div>
                                     <input type="checkbox">
-                                    <label>{{ f3 }}</label>
+                                    <label>{{ feeling }}</label>
                                 </div>
                                 {% endfor %}
                             </div>
                         </td>
                         <td>
                             <div id="drop4" class="dropdown-content">
-                                {% for f4 in data[3] %}
+                                {% for feeling in JOY %}
                                 <div>
                                     <input type="checkbox">
-                                    <label>{{ f4 }}</label>
+                                    <label>{{ feeling }}</label>
                                 </div>
                                 {% endfor %}
                             </div>
                         </td>
                         <td>
                             <div id="drop5" class="dropdown-content">
-                                {% for f5 in data[4] %}
+                                {% for feeling in HAPPINESS %}
                                 <div>
                                     <input type="checkbox">
-                                    <label>{{ f5 }}</label>
+                                    <label>{{ feeling }}</label>
                                 </div>
                                 {% endfor %}
                             </div>
@@ -121,31 +140,22 @@
             else content.style.display = 'none';
         });
         
-        const th1 = document.getElementsByTagName('th')[0];
-        const content1 = document.getElementById('drop1');
-        // Add a click event listener to the th1 element
-        th1.addEventListener('click', function(event) {
-            // Toggle the 'clicked' class on th1 element click
-            event.preventDefault(); 
-            if (content1.style.display == 'none') content1.style.display = 'block';
-            else content1.style.display = 'none';
-        });
 
-    const thElements = document.querySelectorAll('th.dropbtn');
-    const dropContents = document.querySelectorAll('.dropdown-content');
+        const thElements = document.querySelectorAll('th');
+        let dropContents = document.querySelectorAll('.dropdown-content');
+        dropContents = Array.from(dropContents).slice(1); // delete the first tr drop contents
 
-    thElements.forEach((th, index) => {
-        th.addEventListener('click', function(event) {
-            event.preventDefault();
-            dropContents.forEach((content, contentIndex) => {
-                if (index === contentIndex) {
-                    content.classList.toggle('active');
-                } else {
-                    content.classList.remove('active');
-                }
+        thElements.forEach((th, index) => {
+            th.addEventListener('click', function(event) {
+                event.preventDefault();
+                dropContents[index].classList.toggle('active');
+                dropContents.forEach((content, contentIndex) => {
+                    if (index !== contentIndex) {
+                        content.classList.remove('active');
+                    }
+                });
             });
         });
-    });
     </script>
 </body>
 </html>
