@@ -1,5 +1,4 @@
 from flask import Flask, render_template
-import jinja2
 
 app = Flask(__name__)
 FEAR = []
@@ -9,7 +8,7 @@ JOY = []
 HAPPINESS = []
 
 def fulfill_feelings(collection, br_n):
-    cnt = 0 # count of break li nes
+    cnt = 0 # count of break li nes 
     br_n_prev = br_n - 1
     take = False # append while take is true
     for line in feelings:

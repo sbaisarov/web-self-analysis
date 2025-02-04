@@ -7,13 +7,28 @@
             display: none;
             position: absolute;
             background-color: #f1f1f1;
-            min-width: 200px;
             box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
             z-index: 1;
         }
 
+        .dropdown-content th {
+            max-width: 80px;
+            cursor: pointer;
+            text-align: center;
+            padding: 10px 14px;
+            position: relative;
+        }
+
         .dropdown-content th:hover {
             color: white;
+        }
+
+        .dropdown-content table {
+            border-collapse: collapse;
+        }
+
+        #drop1 {
+            top: 100%;
         }
 
         .dropdown-content #fear:hover {
@@ -55,63 +70,70 @@
             <div class="dropdown-content">
                 <table style="border: 1px solid black;">
                     <tr>
-                        <th id="fear" class="dropbtn1">Страх</th>
-                        <th id="sadness" class="dropbtn2">Грусть</th>
-                        <th id="anger" class="dropbtn3">Гнев</th>
-                        <th id="joy" class="dropbtn4">Радость</th>
-                        <th id="happiness" class="dropbtn5">Любовь</th>
-                    </tr>
-                    <tr>
-                        <td>
-                            <div id="drop1" class="dropdown-content">
-                                {% for feeling in FEAR %}
-                                <div>
-                                    <input type="checkbox">
-                                    <label>{{ feeling }}</label>
+                        <tr>
+                            <th id="fear" class="dropbtn1">
+                                Страх
+                                <div id="drop1" class="dropdown-content">
+                                    {% for feeling in FEAR %}
+                                    <div>
+                                        <input type="checkbox">
+                                        <label>{{ feeling }}</label>
+                                    </div>
+                                    {% endfor %}
                                 </div>
-                                {% endfor %}
-                            </div>
-                        </td>
-                        <td>
-                            <div id="drop2" class="dropdown-content">
-                                {% for feeling in SADNESS %}
-                                <div>
-                                    <input type="checkbox">
-                                    <label>{{ feeling }}</label>
+                            </th>
+                        </tr>
+                        <tr>
+                            <th id="sadness" class="dropbtn2">
+                                Грусть
+                                <div id="drop2" class="dropdown-content">
+                                    {% for feeling in SADNESS %}
+                                    <div>
+                                        <input type="checkbox">
+                                        <label>{{ feeling }}</label>
+                                    </div>
+                                    {% endfor %}
                                 </div>
-                                {% endfor %}
-                            </div>
-                        </td>
-                        <td>
-                            <div id="drop3" class="dropdown-content">
-                                {% for feeling in ANGER %}
-                                <div>
-                                    <input type="checkbox">
-                                    <label>{{ feeling }}</label>
+                            </th>
+                        </tr>
+                        <tr>
+                            <th id="anger" class="dropbtn3">Гнев
+                                <div id="drop3" class="dropdown-content">
+                                    {% for feeling in ANGER %}
+                                    <div>
+                                        <input type="checkbox">
+                                        <label>{{ feeling }}</label>
+                                    </div>
+                                    {% endfor %}
                                 </div>
-                                {% endfor %}
-                            </div>
-                        </td>
-                        <td>
-                            <div id="drop4" class="dropdown-content">
-                                {% for feeling in JOY %}
-                                <div>
-                                    <input type="checkbox">
-                                    <label>{{ feeling }}</label>
+                            </th>
+                        </tr>
+                        <tr>
+                            <th id="joy" class="dropbtn4">
+                                Радость
+                                <div id="drop4" class="dropdown-content">
+                                     {% for feeling in JOY %}
+                                    <div>
+                                        <input type="checkbox">
+                                        <label>{{ feeling }}</label>
+                                    </div>
+                                    {% endfor %}
                                 </div>
-                                {% endfor %}
-                            </div>
-                        </td>
-                        <td>
-                            <div id="drop5" class="dropdown-content">
-                                {% for feeling in HAPPINESS %}
-                                <div>
-                                    <input type="checkbox">
-                                    <label>{{ feeling }}</label>
+                            </th>
+                        </tr>
+                        <tr>
+                            <th id="happiness" class="dropbtn5">
+                                Любовь
+                                <div id="drop5" class="dropdown-content">
+                                    {% for feeling in HAPPINESS %}
+                                    <div>
+                                        <input type="checkbox">
+                                        <label>{{ feeling }}</label>
+                                    </div>
+                                    {% endfor %}
                                 </div>
-                                {% endfor %}
-                            </div>
-                        </td>
+                            </th>
+                        </tr>
                     </tr>
                 </table>
             </div>
@@ -140,7 +162,7 @@
             else content.style.display = 'none';
         });
         
-
+        
         const thElements = document.querySelectorAll('th');
         let dropContents = document.querySelectorAll('.dropdown-content');
         dropContents = Array.from(dropContents).slice(1); // delete the first tr drop contents
