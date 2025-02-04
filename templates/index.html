@@ -27,8 +27,10 @@
             border-collapse: collapse;
         }
 
-        #drop1 {
+        #drop1, #drop2, #drop3, #drop4, #drop5 {
             top: 100%;
+            color: maroon;
+            left: 0;
         }
 
         .dropdown-content #fear:hover {
@@ -112,7 +114,7 @@
                             <th id="joy" class="dropbtn4">
                                 Радость
                                 <div id="drop4" class="dropdown-content">
-                                     {% for feeling in JOY %}
+                                    {% for feeling in JOY %}
                                     <div>
                                         <input type="checkbox">
                                         <label>{{ feeling }}</label>
@@ -137,8 +139,9 @@
                     </tr>
                 </table>
             </div>
-    </div>
+        </div>
     </form>
+    <input type="text" name="thought" placeholder="Мысль"><br>
     <script>
         const input = document.getElementsByTagName('input')[0];
     
