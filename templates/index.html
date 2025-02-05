@@ -1,4 +1,4 @@
-
+<!DOCTYPE html>
 <html>
 <head>
     <title>Корректировачный самоанализ РЦ &lt&ltЭволюция&gt&gt</title>
@@ -81,8 +81,8 @@
                                 <div class="dropdown-content feelings">
                                     {% for feeling in FEAR %}
                                     <div>
-                                        <input type="checkbox">
-                                        <label>{{ feeling }}</label>
+                                        <input id="fear{{ loop.index }}" type="checkbox">
+                                        <label for="fear{{ loop.index }}">{{ feeling }}</label>
                                     </div>
                                     {% endfor %}
                                 </div>
@@ -94,7 +94,7 @@
                                 <div class="dropdown-content feelings">
                                     {% for feeling in SADNESS %}
                                     <div>
-                                        <input type="checkbox">
+                                        <input id="feeling{{ loop.index }}" type="checkbox">
                                         <label>{{ feeling }}</label>
                                     </div>
                                     {% endfor %}
@@ -107,7 +107,7 @@
                                 <div class="dropdown-content feelings">
                                     {% for feeling in ANGER %}
                                     <div>
-                                        <input type="checkbox">
+                                        <input id="feeling{{ loop.index }}" type="checkbox">
                                         <label>{{ feeling }}</label>
                                     </div>
                                     {% endfor %}
@@ -120,7 +120,7 @@
                                 <div class="dropdown-content feelings">
                                     {% for feeling in JOY %}
                                     <div>
-                                        <input type="checkbox">
+                                        <input id="feeling{{ loop.index }}" type="checkbox">
                                         <label>{{ feeling }}</label>
                                     </div>
                                     {% endfor %}
@@ -133,7 +133,7 @@
                                 <div class="dropdown-content feelings">
                                     {% for feeling in HAPPINESS %}
                                     <div>
-                                        <input type="checkbox">
+                                        <input id="feeling{{ loop.index }}" type="checkbox">
                                         <label>{{ feeling }}</label>
                                     </div>
                                     {% endfor %}
