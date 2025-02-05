@@ -6,6 +6,7 @@ SADNESS = []
 ANGER = []
 JOY = []
 HAPPINESS = []
+FLAWS = []
 
 def fulfill_feelings(collection, br_n):
     cnt = 0 # count of break li nes 
@@ -24,6 +25,10 @@ def fulfill_feelings(collection, br_n):
         if take:
             collection.append(line)
 
+def fulfill_flaws(collection):
+    for flaw in feelings:
+        collection.append(flaw)
+
 
 with open("feelings.txt", 'r', encoding='utf-8') as f:
     feelings = [i.strip() for i in f.readlines()]
@@ -32,11 +37,14 @@ with open("feelings.txt", 'r', encoding='utf-8') as f:
     fulfill_feelings(ANGER, 3)
     fulfill_feelings(JOY, 4)
     fulfill_feelings(HAPPINESS, 5)
-    data = list(zip(FEAR, SADNESS, ANGER, JOY, HAPPINESS))
 
+with open("flaws.txt", 'r', encoding='utf-8') as f:
+    flaws = [i.strip() for i in f.readlines()]    
+    fulfill_flaws(FLAWS)
+    
 @app.route('/')
 def main():
     return render_template('index.html', FEAR=FEAR, SADNESS=SADNESS, ANGER=ANGER,
-                           JOY=JOY, HAPPINESS=HAPPINESS)
+                           JOY=JOY, HAPPINESS=HAPPINESS, FLAWS=FLAWS)
 
 app.run(reload=True)
