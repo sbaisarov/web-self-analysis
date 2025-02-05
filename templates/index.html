@@ -143,17 +143,25 @@
     </form>
     <input type="text" name="thought" placeholder="Мысль"><br>
     <script>
-        const input = document.getElementsByTagName('input')[0];
-    
-        input.addEventListener('focus', function() {
-            this.placeholder = ''; // Clear placeholder on focus
-        });
-    
-        input.addEventListener('blur', function() {
-            if (this.value === '') {
-                this.placeholder = 'Опишите Ситуацию'; // Restore placeholder if input is empty
-            }
-        });
+        const inputs = document.getElementsByTagName('input');
+        
+        for (const input of inputs) {
+            input.addEventListener('focus', function() {
+                this.placeholder = ''; // Clear placeholder on focus
+            });
+        
+            input.addEventListener('blur', function() {
+                if (this.value === '') {
+                    if (this.name === 'name') {
+                        this.placeholder = 'Опишите Ситуацию'; // Restore placeholder if input is empty
+                    }
+
+                    else if(this.name === 'thought') {
+                        this.placeholder = 'Мысль'
+                    }
+                }
+            });
+        }
 
         const button = document.getElementsByClassName('dropbtn')[0];
         const content = document.getElementsByClassName('dropdown-content')[0];
