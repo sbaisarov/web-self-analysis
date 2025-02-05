@@ -33,6 +33,7 @@
             left: 0;
             font-size: 12px;
             min-width: 180px;
+            position: absolute;
         }
 
         .dropdown-content #fear:hover {
@@ -75,7 +76,7 @@
                 <table style="border: 1px solid black;">
                     <tr>
                         <tr>
-                            <th id="fear" class="dropbtn1">
+                            <th id="fear">
                                 Страх
                                 <div class="dropdown-content feelings">
                                     {% for feeling in FEAR %}
@@ -101,7 +102,8 @@
                             </th>
                         </tr>
                         <tr>
-                            <th id="anger" class="dropbtn3">Гнев
+                            <th id="anger" class="dropbtn3">
+                                Гнев
                                 <div class="dropdown-content feelings">
                                     {% for feeling in ANGER %}
                                     <div>
@@ -193,6 +195,7 @@
         thElements.forEach((th, index) => {
             th.addEventListener('click', function(event) {
                 event.preventDefault();
+                event.stopPropagation();
                 dropContents[index].classList.toggle('active');
                 dropContents.forEach((content, contentIndex) => {
                     if (index !== contentIndex) {
@@ -201,6 +204,15 @@
                 });
             });
         });
+
+        // Prevent closing when clicking inside the dropdowns
+        dropContents.forEach(dropdown => {
+        dropdown.addEventListener('click', function(event) {
+            event.stopPropagation();
+        });
+    });
+
+        
     </script>
 </body>
 </html>
