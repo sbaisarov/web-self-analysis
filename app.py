@@ -24,9 +24,12 @@ def fulfill_feelings(collection, br_n):
 
         if take:
             collection.append(line)
+            
+    collection.sort()
 
 def fulfill_flaws(collection):
-    for flaw in feelings:
+    flaws.sort()
+    for flaw in flaws:
         collection.append(flaw)
 
 

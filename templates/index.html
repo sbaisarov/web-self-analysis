@@ -72,7 +72,7 @@
         <input type="text" name="situation" placeholder="Опишите Ситуацию"><br>
         <button class="dropbtn">Чувства</button>
         <div id="drop" class="dropdown">
-            <div class="dropdown-content">
+            <div id="feelingsContent" class="dropdown-content">
                 <table style="border: 1px solid black;">
                     <tr>
                         <tr>
@@ -148,7 +148,7 @@
     <input type="text" name="thought" placeholder="Мысль"><br>
     <button class="dropbtn">Дефекты </button>
     <div id="drop" class="dropdown">
-        <div class="dropdown-content">
+        <div id="flawsContent" class="dropdown-content">
             {% for flaw in FLAWS %}
                 <div>
                     <input type="checkbox">
@@ -178,20 +178,31 @@
             });
         }
 
-        const button = document.getElementsByClassName('dropbtn')[0];
-        const content = document.getElementsByClassName('dropdown-content')[0];
+        const buttons = document.querySelectorAll('.dropbtn');
+        const feelingsButton = buttons[0];
+        const feelingsContent = document.querySelectorAll('.dropdown-content#feelingsContent')[0];
         // Add a click event listener to the button
-        button.addEventListener('click', function(event) {
+        feelingsButton.addEventListener('click', function(event) {
             // Toggle the 'clicked' class on button click
-            event.preventDefault(); 
-            if (content.style.display == 'none') content.style.display = 'block';
-            else content.style.display = 'none';
+            event.preventDefault();
+            if (feelingsContent.style.display == 'none') feelingsContent.style.display = 'block';
+            else feelingsContent.style.display = 'none';
         });
         
+        const flawsButton = buttons[1];
+        const flawsContent = document.querySelectorAll('.dropdown-content#flawsContent')[0];
+        // Add a click event listener to the button
+        flawsButton.addEventListener('click', function(event) {
+            // Toggle the 'clicked' class on button click
+            event.preventDefault();
+            if (flawsContent.style.display == 'none') flawsContent.style.display = 'block';
+            else flawsContent.style.display = 'none';
+        });
+
         
         const thElements = document.querySelectorAll('th');
-        let dropContents = document.querySelectorAll('.dropdown-content');
-        dropContents = Array.from(dropContents).slice(1); // delete the first tr drop contents
+        let dropContents = document.querySelectorAll('.dropdown-content.feelings');
+        // dropContents = Array.from(dropContents).slice(1); // delete the first tr drop contents
 
         thElements.forEach((th, index) => {
             th.addEventListener('click', function(event) {
