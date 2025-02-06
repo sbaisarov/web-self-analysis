@@ -94,8 +94,8 @@
                                 <div class="dropdown-content feelings">
                                     {% for feeling in SADNESS %}
                                     <div>
-                                        <input id="feeling{{ loop.index }}" type="checkbox">
-                                        <label>{{ feeling }}</label>
+                                        <input id="sadness{{ loop.index }}" type="checkbox">
+                                        <label for="sadness{{ loop.index }}">{{ feeling }}</label>
                                     </div>
                                     {% endfor %}
                                 </div>
@@ -107,8 +107,8 @@
                                 <div class="dropdown-content feelings">
                                     {% for feeling in ANGER %}
                                     <div>
-                                        <input id="feeling{{ loop.index }}" type="checkbox">
-                                        <label>{{ feeling }}</label>
+                                        <input id="anger{{ loop.index }}" type="checkbox">
+                                        <label for="anger{{ loop.index }}">{{ feeling }}</label>
                                     </div>
                                     {% endfor %}
                                 </div>
@@ -120,8 +120,8 @@
                                 <div class="dropdown-content feelings">
                                     {% for feeling in JOY %}
                                     <div>
-                                        <input id="feeling{{ loop.index }}" type="checkbox">
-                                        <label>{{ feeling }}</label>
+                                        <input id="joy{{ loop.index }}" type="checkbox">
+                                        <label for="joy{{ loop.index }}">{{ feeling }}</label>
                                     </div>
                                     {% endfor %}
                                 </div>
@@ -133,8 +133,8 @@
                                 <div class="dropdown-content feelings">
                                     {% for feeling in HAPPINESS %}
                                     <div>
-                                        <input id="feeling{{ loop.index }}" type="checkbox">
-                                        <label>{{ feeling }}</label>
+                                        <input id="happiness{{ loop.index }}" type="checkbox">
+                                        <label for="happiness{{ loop.index }}">{{ feeling }}</label>
                                     </div>
                                     {% endfor %}
                                 </div>
@@ -148,13 +148,14 @@
     <input type="text" name="thought" placeholder="Мысль"><br>
     <button class="dropbtn">Дефекты </button>
     <div id="drop" class="dropdown">
-    <div class="dropdown-content">
-        {% for flaw in FLAWS %}
-            <div>
-                <input type="checkbox">
-                <label>{{ flaw }}</label>
-            </div>
-        {% endfor %}        
+        <div class="dropdown-content">
+            {% for flaw in FLAWS %}
+                <div>
+                    <input type="checkbox">
+                    <label>{{ flaw }}</label>
+                </div>
+            {% endfor %}  
+        </div>      
     </div>
     <script>
         const inputs = document.getElementsByTagName('input');
