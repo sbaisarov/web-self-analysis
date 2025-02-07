@@ -7,14 +7,15 @@ ANGER = []
 JOY = []
 HAPPINESS = []
 FLAWS = []
+FEARS = {"fears": [], "fears_to_be": [], "fears_to_seem": [], "fears_to_lose": []}
 DENIALS = ["Простое отрицание", "Минимализация", "Рационализация", "Интеллектуализация", "Проекция",
            "Фантазия", "Обвинение", "Отвлечение внимания", "Приукрашивание воспоминаний", "Планирование желаемого"]
 
-def fulfill_feelings(collection, br_n):
-    cnt = 0 # count of break li nes 
+def fulfill(collection_in, collection_out, br_n):
+    cnt = 0 # count of break lines 
     br_n_prev = br_n - 1
     take = False # append while take is true
-    for line in feelings:
+    for line in collection_in:
         if line == '':
             cnt += 1
             if cnt == br_n:
@@ -25,9 +26,9 @@ def fulfill_feelings(collection, br_n):
             take = True
 
         if take:
-            collection.append(line)
+            collection_out.append(line)
             
-    collection.sort()
+    collection_out.sort()
 
 def fulfill_flaws(collection):
     flaws.sort()
@@ -43,11 +44,11 @@ def fulfill_fears(collection):
 
 with open("feelings.txt", 'r', encoding='utf-8') as f:
     feelings = [i.strip() for i in f.readlines()]
-    fulfill_feelings(FEAR, 1)
-    fulfill_feelings(SADNESS, 2)
-    fulfill_feelings(ANGER, 3)
-    fulfill_feelings(JOY, 4)
-    fulfill_feelings(HAPPINESS, 5)
+    fulfill(feelings, FEAR, 1)
+    fulfill(feelings, SADNESS, 2)
+    fulfill(feelings, ANGER, 3)
+    fulfill(feelings, JOY, 4)
+    fulfill(feelings, HAPPINESS, 5)
 
 with open("flaws.txt", 'r', encoding='utf-8') as f:
     flaws = [i.strip() for i in f.readlines()]    
@@ -56,11 +57,15 @@ with open("flaws.txt", 'r', encoding='utf-8') as f:
 with open("fears.txt", "r", encoding='utf-8') as f:
     fears = [i.strip() for i in f.readlines()]
     
-    fulfill_fears(fears)
+    fulfill(fears, FEARS["fears"], 1)
+    fulfill(fears, FEARS["fears_to_be"], 2)
+    fulfill(fears, FEARS["fears_to_seem"], 3)
+    fulfill(fears, FEARS["fears_to_lose"], 4)
+    
 
 @app.route('/')
 def main():
     return render_template('index.html', FEAR=FEAR, SADNESS=SADNESS, ANGER=ANGER,
-                           JOY=JOY, HAPPINESS=HAPPINESS, FLAWS=FLAWS, DENIALS=DENIALS)
+                           JOY=JOY, HAPPINESS=HAPPINESS, FLAWS=FLAWS, FEARS=FEARS, DENIALS=DENIALS)
 
 app.run(reload=True)

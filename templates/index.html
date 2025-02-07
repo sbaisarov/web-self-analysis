@@ -36,6 +36,16 @@
             position: absolute;
         }
 
+        .fears {
+            max-width: 80px;
+            cursor: pointer;
+            text-align: center;
+            padding: 10px 14px;
+            position: relative;
+            background-color: green;
+            box-shadow: 0 0 10px rgba(0, 128, 0, 0.5);
+        }
+
         .dropdown-content #fear:hover {
             background-color: green;
             box-shadow: 0 0 10px rgba(0, 128, 0, 0.5);
@@ -160,18 +170,25 @@
 
     <div>
         <button class="dropbtn">Страхи</button>
-        <div class="dropdown-content"></div>
+        <div id="fearContent" class="dropdown-content fears">
+            <div>
+                <input id="fear123" type="checkbox">
+                <label for="fear123">Страх</label>
+            </div>
+        </div>
     </div>
 
-    <button class="dropbtn">Форма отрицания</button>
-    <div class="dropdown">
-        <div id="denialsContent" class="dropdown-content">
-            {% for denial in DENIALS %}
-                <div>
-                    <input id="denial{{ loop.index }}" type="checkbox">
-                    <label for="denial{{ loop.index }}">{{ denial }}</label>
-                </div>
-            {% endfor %}  
+    <div>
+        <button class="dropbtn">Форма отрицания</button>
+        <div class="dropdown">
+            <div id="denialsContent" class="dropdown-content">
+                {% for denial in DENIALS %}
+                    <div>
+                        <input id="denial{{ loop.index }}" type="checkbox">
+                        <label for="denial{{ loop.index }}">{{ denial }}</label>
+                    </div>
+                {% endfor %}  
+            </div>
         </div>
     </div>
     
@@ -185,7 +202,7 @@
         
             input.addEventListener('blur', function() {
                 if (this.value === '') {
-                    if (this.name === 'name') {
+                    if (this.name === 'situation') {
                         this.placeholder = 'Опишите Ситуацию'; // Restore placeholder if input is empty
                     }
 
@@ -219,7 +236,17 @@
             else flawsContent.style.display = 'none';
         });
 
-        const denialsButton = buttons[2];
+        const fearsButton = buttons[2];
+        const fearsContent = document.querySelectorAll('.dropdown-content#fearContent')[0];
+        // Add a click event listener to the button
+        fearsButton.addEventListener('click', function(event) {
+            // Toggle the 'clicked' class on button click
+            event.preventDefault();
+            if (fearsContent.style.display == 'none') fearsContent.style.display = 'block';
+            else fearsContent.style.display = 'none';
+        });
+
+        const denialsButton = buttons[3];
         const denialsContent = document.querySelectorAll('.dropdown-content#denialsContent')[0];
         // Add a click event listener to the button
         denialsButton.addEventListener('click', function(event) {
@@ -261,8 +288,21 @@
                     content.classList.remove('active');
                 }
             })
+
+            if (!feelingsButton.contains(event.target)) {
+                feelingsContent.style.display = 'none';
+            }
+
             if (!flawsContent.contains(event.target) && !flawsButton.contains(event.target)) {
                 flawsContent.style.display = 'none';
+            }
+
+            if (!denialsContent.contains(event.target) && !denialsButton.contains(event.target)) {
+                denialsContent.style.display = 'none';
+            }
+
+            if (!fearsContent.contains(event.target) &&!fearsButton.contains(event.target)) {
+                fearsContent.style.display = 'none';
             }
         });
     </script>
