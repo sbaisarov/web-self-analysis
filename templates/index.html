@@ -71,7 +71,7 @@
         <label>Ситуцация:</label><br>
         <input type="text" name="situation" placeholder="Опишите Ситуацию"><br>
         <button class="dropbtn">Чувства</button>
-        <div id="drop" class="dropdown">
+        <div>
             <div id="feelingsContent" class="dropdown-content">
                 <table style="border: 1px solid black;">
                     <tr>
@@ -89,7 +89,7 @@
                             </th>
                         </tr>
                         <tr>
-                            <th id="sadness" class="dropbtn2">
+                            <th id="sadness">
                                 Грусть
                                 <div class="dropdown-content feelings">
                                     {% for feeling in SADNESS %}
@@ -102,7 +102,7 @@
                             </th>
                         </tr>
                         <tr>
-                            <th id="anger" class="dropbtn3">
+                            <th id="anger">
                                 Гнев
                                 <div class="dropdown-content feelings">
                                     {% for feeling in ANGER %}
@@ -115,7 +115,7 @@
                             </th>
                         </tr>
                         <tr>
-                            <th id="joy" class="dropbtn4">
+                            <th id="joy">
                                 Радость
                                 <div class="dropdown-content feelings">
                                     {% for feeling in JOY %}
@@ -128,7 +128,7 @@
                             </th>
                         </tr>
                         <tr>
-                            <th id="happiness" class="dropbtn5">
+                            <th id="happiness">
                                 Любовь
                                 <div class="dropdown-content feelings">
                                     {% for feeling in HAPPINESS %}
@@ -146,17 +146,35 @@
         </div>
     </form>
     <input type="text" name="thought" placeholder="Мысль"><br>
-    <button class="dropbtn">Дефекты </button>
-    <div id="drop" class="dropdown">
-        <div id="flawsContent" class="dropdown-content">
+    <button class="dropbtn">Дефекты</button>
+    <div class="dropdown-content flaws">
+        <div id="flawsContent">
             {% for flaw in FLAWS %}
                 <div>
-                    <input type="checkbox">
-                    <label>{{ flaw }}</label>
+                    <input id="flaw{{ loop.index }}" type="checkbox">
+                    <label for="flaw{{ loop.index }}">{{ flaw }}</label>
                 </div>
             {% endfor %}  
-        </div>      
+        </div>
     </div>
+
+    <div>
+        <button class="dropbtn">Страхи</button>
+        <div class="dropdown-content"></div>
+    </div>
+
+    <button class="dropbtn">Форма отрицания</button>
+    <div class="dropdown">
+        <div id="denialsContent" class="dropdown-content">
+            {% for denial in DENIALS %}
+                <div>
+                    <input id="denial{{ loop.index }}" type="checkbox">
+                    <label for="denial{{ loop.index }}">{{ denial }}</label>
+                </div>
+            {% endfor %}  
+        </div>
+    </div>
+    
     <script>
         const inputs = document.getElementsByTagName('input');
         
@@ -190,19 +208,30 @@
         });
         
         const flawsButton = buttons[1];
-        const flawsContent = document.querySelectorAll('.dropdown-content#flawsContent')[0];
+        const flawsContent = document.querySelectorAll('.dropdown-content.flaws')[0];
         // Add a click event listener to the button
         flawsButton.addEventListener('click', function(event) {
             // Toggle the 'clicked' class on button click
             event.preventDefault();
-            if (flawsContent.style.display == 'none') flawsContent.style.display = 'block';
+            if (flawsContent.style.display == 'none') {
+                flawsContent.style.display = 'block';
+            }
             else flawsContent.style.display = 'none';
+        });
+
+        const denialsButton = buttons[2];
+        const denialsContent = document.querySelectorAll('.dropdown-content#denialsContent')[0];
+        // Add a click event listener to the button
+        denialsButton.addEventListener('click', function(event) {
+            // Toggle the 'clicked' class on button click
+            event.preventDefault();
+            if (denialsContent.style.display == 'none') denialsContent.style.display = 'block';
+            else denialsContent.style.display = 'none';
         });
 
         
         const thElements = document.querySelectorAll('th');
         let dropContents = document.querySelectorAll('.dropdown-content.feelings');
-        // dropContents = Array.from(dropContents).slice(1); // delete the first tr drop contents
 
         thElements.forEach((th, index) => {
             th.addEventListener('click', function(event) {
@@ -219,12 +248,23 @@
 
         // Prevent closing when clicking inside the dropdowns
         dropContents.forEach(dropdown => {
-        dropdown.addEventListener('click', function(event) {
-            event.stopPropagation();
+                dropdown.addEventListener('click', function(event) {
+                event.stopPropagation();
+            });
         });
-    });
 
-        
+        // Prevent closing when clicking outside the dropdowns
+        const table = document.querySelectorAll('table')[0];
+        document.addEventListener('click', function(event) {
+            dropContents.forEach(content => {
+                if (!content.contains(event.target)) {
+                    content.classList.remove('active');
+                }
+            })
+            if (!flawsContent.contains(event.target) && !flawsButton.contains(event.target)) {
+                flawsContent.style.display = 'none';
+            }
+        });
     </script>
 </body>
 </html>
