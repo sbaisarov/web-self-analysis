@@ -4,7 +4,7 @@
     <title>Корректировачный самоанализ РЦ &lt&ltЭволюция&gt&gt</title>
     <style>
         .dropdown-content {
-            display: none;
+            display: none; 
             position: absolute;
             background-color: #f1f1f1;
             box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
@@ -37,13 +37,14 @@
         }
 
         .fears {
-            max-width: 80px;
-            cursor: pointer;
-            text-align: center;
-            padding: 10px 14px;
-            position: relative;
-            background-color: green;
-            box-shadow: 0 0 10px rgba(0, 128, 0, 0.5);
+            top: 100%;
+            color: maroon;
+            left: 0;
+            font-size: 14px;
+            min-width: 180px;
+            text-align: left;
+            position: absolute;
+            z-index: 1;
         }
 
         .dropdown-content #fear:hover {
@@ -77,6 +78,9 @@
     </style>
 </head>
 <body>
+    <p>Герберт спенсер однажды сказал...
+        <imr src="./spencer.jpg">
+    </p>
     <form>
         <label>Ситуцация:</label><br>
         <input type="text" name="situation" placeholder="Опишите Ситуацию"><br>
@@ -85,71 +89,69 @@
             <div id="feelingsContent" class="dropdown-content">
                 <table style="border: 1px solid black;">
                     <tr>
-                        <tr>
-                            <th id="fear">
-                                Страх
-                                <div class="dropdown-content feelings">
-                                    {% for feeling in FEAR %}
-                                    <div>
-                                        <input id="fear{{ loop.index }}" type="checkbox">
-                                        <label for="fear{{ loop.index }}">{{ feeling }}</label>
-                                    </div>
-                                    {% endfor %}
+                        <th id="fear">
+                            Страх
+                            <div class="dropdown-content feelings">
+                                {% for feeling in FEAR %}
+                                <div>
+                                    <input id="fear{{ loop.index }}" type="checkbox">
+                                    <label for="fear{{ loop.index }}">{{ feeling }}</label>
                                 </div>
-                            </th>
-                        </tr>
-                        <tr>
-                            <th id="sadness">
-                                Грусть
-                                <div class="dropdown-content feelings">
-                                    {% for feeling in SADNESS %}
-                                    <div>
-                                        <input id="sadness{{ loop.index }}" type="checkbox">
-                                        <label for="sadness{{ loop.index }}">{{ feeling }}</label>
-                                    </div>
-                                    {% endfor %}
+                                {% endfor %}
+                            </div>
+                        </th>
+                    </tr>
+                    <tr>
+                        <th id="sadness">
+                            Грусть
+                            <div class="dropdown-content feelings">
+                                {% for feeling in SADNESS %}
+                                <div>
+                                    <input id="sadness{{ loop.index }}" type="checkbox">
+                                    <label for="sadness{{ loop.index }}">{{ feeling }}</label>
                                 </div>
-                            </th>
-                        </tr>
-                        <tr>
-                            <th id="anger">
-                                Гнев
-                                <div class="dropdown-content feelings">
-                                    {% for feeling in ANGER %}
-                                    <div>
-                                        <input id="anger{{ loop.index }}" type="checkbox">
-                                        <label for="anger{{ loop.index }}">{{ feeling }}</label>
-                                    </div>
-                                    {% endfor %}
+                                {% endfor %}
+                            </div>
+                        </th>
+                    </tr>
+                    <tr>
+                        <th id="anger">
+                            Гнев
+                            <div class="dropdown-content feelings">
+                                {% for feeling in ANGER %}
+                                <div>
+                                    <input id="anger{{ loop.index }}" type="checkbox">
+                                    <label for="anger{{ loop.index }}">{{ feeling }}</label>
                                 </div>
-                            </th>
-                        </tr>
-                        <tr>
-                            <th id="joy">
-                                Радость
-                                <div class="dropdown-content feelings">
-                                    {% for feeling in JOY %}
-                                    <div>
-                                        <input id="joy{{ loop.index }}" type="checkbox">
-                                        <label for="joy{{ loop.index }}">{{ feeling }}</label>
-                                    </div>
-                                    {% endfor %}
+                                {% endfor %}
+                            </div>
+                        </th>
+                    </tr>
+                    <tr>
+                        <th id="joy">
+                            Радость
+                            <div class="dropdown-content feelings">
+                                {% for feeling in JOY %}
+                                <div>
+                                    <input id="joy{{ loop.index }}" type="checkbox">
+                                    <label for="joy{{ loop.index }}">{{ feeling }}</label>
                                 </div>
-                            </th>
-                        </tr>
-                        <tr>
-                            <th id="happiness">
-                                Любовь
-                                <div class="dropdown-content feelings">
-                                    {% for feeling in HAPPINESS %}
-                                    <div>
-                                        <input id="happiness{{ loop.index }}" type="checkbox">
-                                        <label for="happiness{{ loop.index }}">{{ feeling }}</label>
-                                    </div>
-                                    {% endfor %}
+                                {% endfor %}
+                            </div>
+                        </th>
+                    </tr>
+                    <tr>
+                        <th id="happiness">
+                            Любовь
+                            <div class="dropdown-content feelings">
+                                {% for feeling in HAPPINESS %}
+                                <div>
+                                    <input id="happiness{{ loop.index }}" type="checkbox">
+                                    <label for="happiness{{ loop.index }}">{{ feeling }}</label>
                                 </div>
-                            </th>
-                        </tr>
+                                {% endfor %}
+                            </div>
+                        </th>
                     </tr>
                 </table>
             </div>
@@ -164,19 +166,66 @@
                     <input id="flaw{{ loop.index }}" type="checkbox">
                     <label for="flaw{{ loop.index }}">{{ flaw }}</label>
                 </div>
-            {% endfor %}  
+            {% endfor %}
         </div>
     </div>
 
     <div>
         <button class="dropbtn">Страхи</button>
-        <div id="fearContent" class="dropdown-content fears">
-            <div>
-                <input id="fear123" type="checkbox">
-                <label for="fear123">Страх</label>
-            </div>
+        <div id="fearContent" class="dropdown-content">
+            <table>
+                <tr>
+                    <th>Страх
+                        <div class="dropdown-content fears">
+                             {% for fear in FEARS["fears"] %}
+                                <div>
+                                    <input id="fear{{ loop.index }}" type="checkbox">
+                                    <label for="fear{{ loop.index }}">{{ fear }}</label>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </th>
+                </tr>
+                <tr>
+                    <th>Страх быть
+                        <div class="dropdown-content fears">
+                             {% for fear_to_be in FEARS["fears_to_be"] %}
+                                <div>
+                                    <input id="fear_to_be{{ loop.index }}" type="checkbox">
+                                    <label for="fear_to_be{{ loop.index }}">{{ fear_to_be }}</label>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </th>
+                </tr>
+                <tr>
+                    <th>Страх показаться
+                        <div class="dropdown-content fears">
+                             {% for fear_to_seem in FEARS["fears_to_seem"] %}
+                                <div>
+                                    <input id="fear_to_seem{{ loop.index }}" type="checkbox">
+                                    <label for="fear_to_seem{{ loop.index }}">{{ fear_to_seem }}</label>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </th>
+                </tr>
+                <tr>
+                    <th>Страх потери
+                        <div class="dropdown-content fears">
+                             {% for fear_to_lose in FEARS["fears_to_lose"] %}
+                                <div>
+                                    <input id="fear_to_lose{{ loop.index }}" type="checkbox">
+                                    <label for="fear_to_lose{{ loop.index }}">{{ fear_to_lose }}</label>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </th>
+                </tr>
+            </table>
         </div>
     </div>
+
 
     <div>
         <button class="dropbtn">Форма отрицания</button>
@@ -223,6 +272,22 @@
             if (feelingsContent.style.display == 'none') feelingsContent.style.display = 'block';
             else feelingsContent.style.display = 'none';
         });
+
+        const thElements = document.querySelectorAll('#feelingsContent th');
+        let dropContents = document.querySelectorAll('.dropdown-content.feelings');
+
+        thElements.forEach((th, index) => {
+            th.addEventListener('click', function(event) {
+                event.preventDefault();
+                event.stopPropagation();
+                dropContents[index].classList.toggle('active');
+                dropContents.forEach((content, contentIndex) => {
+                    if (index !== contentIndex) {
+                        content.classList.remove('active');
+                    }
+                });
+            });
+        });
         
         const flawsButton = buttons[1];
         const flawsContent = document.querySelectorAll('.dropdown-content.flaws')[0];
@@ -245,6 +310,22 @@
             if (fearsContent.style.display == 'none') fearsContent.style.display = 'block';
             else fearsContent.style.display = 'none';
         });
+        
+        const thElementsFears = document.querySelectorAll('#fearContent th');
+        let dropContentsFears = document.querySelectorAll('.dropdown-content.fears');
+
+        thElementsFears.forEach((th, index) => {
+            th.addEventListener('click', function(event) {
+                event.preventDefault();
+                event.stopPropagation();
+                dropContentsFears[index].classList.toggle('active');
+                dropContentsFears.forEach((content, contentIndex) => {
+                    if (index !== contentIndex) {
+                        content.classList.remove('active');
+                    }
+                });
+            });
+        });
 
         const denialsButton = buttons[3];
         const denialsContent = document.querySelectorAll('.dropdown-content#denialsContent')[0];
@@ -256,25 +337,14 @@
             else denialsContent.style.display = 'none';
         });
 
-        
-        const thElements = document.querySelectorAll('th');
-        let dropContents = document.querySelectorAll('.dropdown-content.feelings');
-
-        thElements.forEach((th, index) => {
-            th.addEventListener('click', function(event) {
-                event.preventDefault();
+        // Prevent closing when clicking inside the dropdowns
+        dropContents.forEach(dropdown => {
+                dropdown.addEventListener('click', function(event) {
                 event.stopPropagation();
-                dropContents[index].classList.toggle('active');
-                dropContents.forEach((content, contentIndex) => {
-                    if (index !== contentIndex) {
-                        content.classList.remove('active');
-                    }
-                });
             });
         });
 
-        // Prevent closing when clicking inside the dropdowns
-        dropContents.forEach(dropdown => {
+        dropContentsFears.forEach(dropdown => {
                 dropdown.addEventListener('click', function(event) {
                 event.stopPropagation();
             });
