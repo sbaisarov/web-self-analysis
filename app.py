@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 
 app = Flask(__name__)
 FEAR = []
@@ -72,5 +72,52 @@ def main():
     return render_template('index.html', FEAR=FEAR, SADNESS=SADNESS, ANGER=ANGER,
                            JOY=JOY, HAPPINESS=HAPPINESS, FLAWS=FLAWS, FEARS=FEARS, DENIALS=DENIALS,
                            NEEDS=NEEDS, PRINCIPLES=PRINCIPLES)
+    
+@app.route('/process', methods=['POST'])
+def process():
+    # parse data and return structured data for clipboard
+    data = request.form
+
+    response = {
+        "situation": data.get("situation", ""),
+        "feelings": [data[key] for key in data if key.startswith("feeling")],
+        "thought": data.get("thought", ""),
+        "flaws": [data[key] for key in data if key.startswith("flaw")],
+        "fears": [data[key] for key in data if key.startswith("fear")],
+        "denials": [data[key] for key in data if key.startswith("denial")],
+        "needs": [data[key] for key in data if key.startswith("need")],
+        "role": [data[key] for key in data if key.startswith("role")],
+        "correction": data.get("correction", ""),
+        "correctionThought": data.get("correctionThought", ""),
+        "principles": [data[key] for key in data if key.startswith("principle")],
+        "traits": [data[key] for key in data if key.startswith("trait")]
+    }
+    
+    formatted_string = f"""
+        Ситуация: {response['situation']}
+
+        Чувства: {', '.join(response['feelings'])}
+
+        Мысль: {response['thought']}
+
+        Дефекты: {', '.join(response['flaws'])}
+
+        Страхи: {', '.join(response['fears'])}
+
+        Отрицания: {', '.join(response['denials'])}
+
+        Потребности/Мотивы: {', '.join(response['needs'])}
+
+        Роль: {', '.join(response['role'])}
+
+        Коррекция: {response['correction']}
+
+        Выравнивающая мысль: {response['correctionThought']}
+
+        Духовные принципы: {', '.join(response['principles'])}
+
+        Черты характера: {', '.join(response['traits'])}
+    """
+    return formatted_string.strip()
 
 app.run(reload=True)

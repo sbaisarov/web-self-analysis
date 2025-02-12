@@ -11,6 +11,16 @@
             z-index: 1;
         }
 
+        .dropdown-content div {
+            padding: 5px 0;
+        }
+
+        form {
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
         .dropdown-content th {
             max-width: 80px;
             cursor: pointer;
@@ -50,6 +60,30 @@
         label {
             font-size: 16px;
             font-weight: bold;
+            display: block;
+            margin-top: 15px;
+            margin-bottom: 5px;
+        }
+
+        input[type="text"], button.dropbtn {
+            padding: 10px;
+            margin-bottom: 15px;
+            font-size: 16px;
+            border: none;
+            border-radius: 4px;
+            box-sizing: border-box;
+            cursor: pointer;
+        }
+
+        input[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            
+            padding: 1em;
+            margin: 0, 20px;
         }
 
         .dropdown-content #fear:hover {
@@ -81,12 +115,42 @@
             display: block;
         }
 
+        @media screen and (min-width: 600px) {
+            form {
+                width: 95%;
+                margin: 0 auto;
+            }
+
+            label {
+                font-size: 14px;
+            }
+
+            input[type="text"], button.dropbtn {
+                width: 100%;
+                font-size: 14px;
+            }
+
+            .dropdown-content {
+                width: 100%;
+                left: 0;
+            }
+
+            .dropdown-content th {
+                padding: 8px 10px;
+            }
+
+            .feelings, .fears {
+                font-size: 12px;
+                mind-width: 150px;
+            }
+        }
+
     </style>
 </head>
 <body>
     <p style="font-family: cursive;">Герберт спенсер однажды сказал...
     </p>
-    <form>
+    <form action='/process' method="post">
         <label>Ситуация:</label><br>
         <input type="text" name="situation" placeholder="Опишите Ситуацию"><br>
         <label>Чувства</label><br>
@@ -100,8 +164,8 @@
                             <div class="dropdown-content feelings">
                                 {% for feeling in FEAR %}
                                 <div>
-                                    <input id="fear{{ loop.index }}" type="checkbox">
-                                    <label for="fear{{ loop.index }}">{{ feeling }}</label>
+                                    <input name="feeling1{{ loop.index }}" id="feeling1{{ loop.index }}"  value="{{ feeling }}" type="checkbox">
+                                    <label for="feeling1{{ loop.index }}">{{ feeling }}</label>
                                 </div>
                                 {% endfor %}
                             </div>
@@ -113,8 +177,8 @@
                             <div class="dropdown-content feelings">
                                 {% for feeling in SADNESS %}
                                 <div>
-                                    <input id="sadness{{ loop.index }}" type="checkbox">
-                                    <label for="sadness{{ loop.index }}">{{ feeling }}</label>
+                                    <input name="feeling2{{ loop.index }}" id="feeling2{{ loop.index }}" value="{{ feeling }}" type="checkbox">
+                                    <label for="feeling2{{ loop.index }}">{{ feeling }}</label>
                                 </div>
                                 {% endfor %}
                             </div>
@@ -126,8 +190,8 @@
                             <div class="dropdown-content feelings">
                                 {% for feeling in ANGER %}
                                 <div>
-                                    <input id="anger{{ loop.index }}" type="checkbox">
-                                    <label for="anger{{ loop.index }}">{{ feeling }}</label>
+                                    <input name="feeling3 {{ loop.index }}" value="{{ feeling }}" id="feeling3{{ loop.index }}" type="checkbox">
+                                    <label for="feeling3{{ loop.index }}">{{ feeling }}</label>
                                 </div>
                                 {% endfor %}
                             </div>
@@ -139,8 +203,8 @@
                             <div class="dropdown-content feelings">
                                 {% for feeling in JOY %}
                                 <div>
-                                    <input id="joy{{ loop.index }}" type="checkbox">
-                                    <label for="joy{{ loop.index }}">{{ feeling }}</label>
+                                    <input name="feeling4{{ loop.index }}" value="{{ feeling }}" id="feeling4{{ loop.index }}" type="checkbox">
+                                    <label for="feeling4{{ loop.index }}">{{ feeling }}</label>
                                 </div>
                                 {% endfor %}
                             </div>
@@ -152,8 +216,8 @@
                             <div class="dropdown-content feelings">
                                 {% for feeling in HAPPINESS %}
                                 <div>
-                                    <input id="happiness{{ loop.index }}" type="checkbox">
-                                    <label for="happiness{{ loop.index }}">{{ feeling }}</label>
+                                    <input name="feeling5{{ loop.index }}" value="{{ feeling }}" id="feeling5{{ loop.index }}" type="checkbox">
+                                    <label for="feeling5{{ loop.index }}">{{ feeling }}</label>
                                 </div>
                                 {% endfor %}
                             </div>
@@ -187,7 +251,7 @@
                             <div class="dropdown-content fears">
                                 {% for fear in FEARS["fears"] %}
                                     <div>
-                                        <input id="fear{{ loop.index }}" type="checkbox">
+                                        <input name="fear{{ loop.index }}" value="{{ fear }}" id="fear{{ loop.index }}" type="checkbox">
                                         <label for="fear{{ loop.index }}">{{ fear }}</label>
                                     </div>
                                 {% endfor %}
@@ -199,7 +263,7 @@
                             <div class="dropdown-content fears">
                                 {% for fear_to_be in FEARS["fears_to_be"] %}
                                     <div>
-                                        <input id="fear_to_be{{ loop.index }}" type="checkbox">
+                                        <input name="fear_to_be{{ loop.index }}" value="{{ fear_to_be }}" id="fear_to_be{{ loop.index }}" type="checkbox">
                                         <label for="fear_to_be{{ loop.index }}">{{ fear_to_be }}</label>
                                     </div>
                                 {% endfor %}
@@ -211,7 +275,7 @@
                             <div class="dropdown-content fears">
                                 {% for fear_to_seem in FEARS["fears_to_seem"] %}
                                     <div>
-                                        <input id="fear_to_seem{{ loop.index }}" type="checkbox">
+                                        <input name="fear_to_seem{{ loop.index }}" value="{{ fear_to_seem }}" id="fear_to_seem{{ loop.index }}" type="checkbox">
                                         <label for="fear_to_seem{{ loop.index }}">{{ fear_to_seem }}</label>
                                     </div>
                                 {% endfor %}
@@ -223,7 +287,7 @@
                             <div class="dropdown-content fears">
                                 {% for fear_to_lose in FEARS["fears_to_lose"] %}
                                     <div>
-                                        <input id="fear_to_lose{{ loop.index }}" type="checkbox">
+                                        <input name="fear_to_lose{{ loop.index }}" value="{{ fear_to_lose }}" id="fear_to_lose{{ loop.index }}" type="checkbox">
                                         <label for="fear_to_lose{{ loop.index }}">{{ fear_to_lose }}</label>
                                     </div>
                                 {% endfor %}
@@ -256,35 +320,35 @@
                 <div id="needsContent" class="dropdown-content">
                     {% for need1 in NEEDS[1] %}
                         <div>
-                            <input id="need1{{ loop.index }}" type="checkbox">
+                            <input name="need1{{ loop.index }}" value="{{ need1 }}" id="need1{{ loop.index }}" type="checkbox">
                             <label for="need1{{ loop.index }}">{{ need1 }}</label>
                         </div>
                     {% endfor %}
                     <br>
                     {% for need2 in NEEDS[2] %}
                         <div>
-                            <input id="need2{{ loop.index }}" type="checkbox">
+                            <input name="need2{{ loop.index }}" value="{{ need2 }}" id="need2{{ loop.index }}" type="checkbox">
                             <label for="need2{{ loop.index }}">{{ need2 }}</label>
                         </div>
                     {% endfor %}
                     <br>
                     {% for need3 in NEEDS[3] %}
                         <div>
-                            <input id="need3{{ loop.index }}" type="checkbox">
+                            <input name="need3{{ loop.index }}" value="{{ need3 }}" id="need3{{ loop.index }}" type="checkbox">
                             <label for="need3{{ loop.index }}">{{ need3 }}</label>
                         </div>
                     {% endfor %}
                     <br>
                     {% for need4 in NEEDS[4] %}
                         <div>
-                            <input id="need4{{ loop.index }}" type="checkbox">
+                            <input name="need4{{ loop.index }}" value="{{ need4 }}" id="need4{{ loop.index }}" type="checkbox">
                             <label for="need4{{ loop.index }}">{{ need4 }}</label>
                         </div>
                     {% endfor %}
                     <br>
                     {% for need5 in NEEDS[5] %}
                         <div>
-                            <input id="need5{{ loop.index }}" type="checkbox">
+                            <input name="need5{{ loop.index }}" value="{{ need5 }}" id="need5{{ loop.index }}" type="checkbox">
                             <label for="need5{{ loop.index }}">{{ need5 }}</label>
                         </div>
                     {% endfor %}
@@ -298,15 +362,15 @@
             <div>
                 <div id="rolesContent" class="dropdown-content">
                         <div>
-                            <input id="role1" type="checkbox">
+                            <input name="role1" value="Агрессор" id="role1" type="checkbox">
                             <label for="role1">Агрессор</label>
                         </div>
                         <div>
-                            <input id="role2" type="checkbox">
+                            <input name="role2" value="Жертва" id="role2" type="checkbox">
                             <label for="role2">Жертва</label>
                         </div>
                         <div>
-                            <input id="role3" type="checkbox">
+                            <input name="role3" value="Спасатель" id="role3" type="checkbox">
                             <label for="role3">Спасатель</label>
                         </div>
                 </div>
@@ -326,7 +390,7 @@
                 <div id="principleContent" class="dropdown-content">
                     {% for principle in PRINCIPLES %}
                         <div>
-                            <input id="principle{{ loop.index }}" type="checkbox">
+                            <input name="principle{{ loop.index }}" value="{{ principle }}" id="principle{{ loop.index }}" type="checkbox">
                             <label for="principle{{ loop.index }}">{{ principle }}</label>
                         </div>
                     {% endfor %}  
@@ -348,6 +412,7 @@
                 </div>
             </div>
         </div>
+        <input type="submit" value="Копировать">
     </form>
     
     <script>
@@ -530,13 +595,13 @@
                 rolesContent.style.display = 'none';
             }
             
-            if (!principlesContent.contains(event.target) &&!principlesButton.contains(event.target)) {
+            if (!principlesContent.contains(event.target) && !principlesButton.contains(event.target)) {
                 principlesContent.style.display = 'none';
             }
         });
     </script>
-    <p><img width="150" height="200" style="border-radius: 50%;" src="{{ url_for('static', filename='spencer.jpg') }}"></p>
-    <P style="position: absolute; left: 50%; font-family: sans-serif;">Lev &amp; Shamil</p>
+    <p><img width="150" height="200" style="position: relative; left: 50%; border-radius: 50%;" src="{{ url_for('static', filename='spencer.jpg') }}"></p>
+    <P style="position: relative; left: 50%; font-family: monospace; font-size: 14px;">Lev &amp; Shamil</p>
 </body>
 </html>
 
