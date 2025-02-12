@@ -47,6 +47,11 @@
             z-index: 1;
         }
 
+        label {
+            font-size: 16px;
+            font-weight: bold;
+        }
+
         .dropdown-content #fear:hover {
             background-color: green;
             box-shadow: 0 0 10px rgba(0, 128, 0, 0.5);
@@ -75,15 +80,16 @@
         .dropdown-content.active {
             display: block;
         }
+
     </style>
 </head>
 <body>
-    <p>Герберт спенсер однажды сказал...
-        <imr src="./spencer.jpg">
+    <p style="font-family: cursive;">Герберт спенсер однажды сказал...
     </p>
     <form>
-        <label>Ситуцация:</label><br>
+        <label>Ситуация:</label><br>
         <input type="text" name="situation" placeholder="Опишите Ситуацию"><br>
+        <label>Чувства</label><br>
         <button class="dropbtn">Чувства</button>
         <div>
             <div id="feelingsContent" class="dropdown-content">
@@ -156,90 +162,193 @@
                 </table>
             </div>
         </div>
-    </form>
-    <input type="text" name="thought" placeholder="Мысль"><br>
-    <button class="dropbtn">Дефекты</button>
-    <div class="dropdown-content flaws">
-        <div id="flawsContent">
-            {% for flaw in FLAWS %}
-                <div>
-                    <input id="flaw{{ loop.index }}" type="checkbox">
-                    <label for="flaw{{ loop.index }}">{{ flaw }}</label>
-                </div>
-            {% endfor %}
-        </div>
-    </div>
-
-    <div>
-        <button class="dropbtn">Страхи</button>
-        <div id="fearContent" class="dropdown-content">
-            <table>
-                <tr>
-                    <th>Страх
-                        <div class="dropdown-content fears">
-                             {% for fear in FEARS["fears"] %}
-                                <div>
-                                    <input id="fear{{ loop.index }}" type="checkbox">
-                                    <label for="fear{{ loop.index }}">{{ fear }}</label>
-                                </div>
-                            {% endfor %}
-                        </div>
-                    </th>
-                </tr>
-                <tr>
-                    <th>Страх быть
-                        <div class="dropdown-content fears">
-                             {% for fear_to_be in FEARS["fears_to_be"] %}
-                                <div>
-                                    <input id="fear_to_be{{ loop.index }}" type="checkbox">
-                                    <label for="fear_to_be{{ loop.index }}">{{ fear_to_be }}</label>
-                                </div>
-                            {% endfor %}
-                        </div>
-                    </th>
-                </tr>
-                <tr>
-                    <th>Страх показаться
-                        <div class="dropdown-content fears">
-                             {% for fear_to_seem in FEARS["fears_to_seem"] %}
-                                <div>
-                                    <input id="fear_to_seem{{ loop.index }}" type="checkbox">
-                                    <label for="fear_to_seem{{ loop.index }}">{{ fear_to_seem }}</label>
-                                </div>
-                            {% endfor %}
-                        </div>
-                    </th>
-                </tr>
-                <tr>
-                    <th>Страх потери
-                        <div class="dropdown-content fears">
-                             {% for fear_to_lose in FEARS["fears_to_lose"] %}
-                                <div>
-                                    <input id="fear_to_lose{{ loop.index }}" type="checkbox">
-                                    <label for="fear_to_lose{{ loop.index }}">{{ fear_to_lose }}</label>
-                                </div>
-                            {% endfor %}
-                        </div>
-                    </th>
-                </tr>
-            </table>
-        </div>
-    </div>
-
-
-    <div>
-        <button class="dropbtn">Форма отрицания</button>
-        <div class="dropdown">
-            <div id="denialsContent" class="dropdown-content">
-                {% for denial in DENIALS %}
+        <label>Мысль</label><br>
+        <input type="text" name="thought" placeholder="Мысль"><br>
+        <label>Дефекты</label><br>
+        <button class="dropbtn">Дефекты</button>
+        <div class="dropdown-content flaws">
+            <div id="flawsContent">
+                {% for flaw in FLAWS %}
                     <div>
-                        <input id="denial{{ loop.index }}" type="checkbox">
-                        <label for="denial{{ loop.index }}">{{ denial }}</label>
+                        <input id="flaw{{ loop.index }}" type="checkbox">
+                        <label for="flaw{{ loop.index }}">{{ flaw }}</label>
                     </div>
-                {% endfor %}  
+                {% endfor %}
             </div>
         </div>
-    </div>
+
+        <div>
+            <label>Страхи</label><br>
+            <button class="dropbtn">Страхи</button>
+            <div id="fearContent" class="dropdown-content">
+                <table>
+                    <tr>
+                        <th>Страх
+                            <div class="dropdown-content fears">
+                                {% for fear in FEARS["fears"] %}
+                                    <div>
+                                        <input id="fear{{ loop.index }}" type="checkbox">
+                                        <label for="fear{{ loop.index }}">{{ fear }}</label>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </th>
+                    </tr>
+                    <tr>
+                        <th>Страх быть
+                            <div class="dropdown-content fears">
+                                {% for fear_to_be in FEARS["fears_to_be"] %}
+                                    <div>
+                                        <input id="fear_to_be{{ loop.index }}" type="checkbox">
+                                        <label for="fear_to_be{{ loop.index }}">{{ fear_to_be }}</label>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </th>
+                    </tr>
+                    <tr>
+                        <th>Страх показаться
+                            <div class="dropdown-content fears">
+                                {% for fear_to_seem in FEARS["fears_to_seem"] %}
+                                    <div>
+                                        <input id="fear_to_seem{{ loop.index }}" type="checkbox">
+                                        <label for="fear_to_seem{{ loop.index }}">{{ fear_to_seem }}</label>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </th>
+                    </tr>
+                    <tr>
+                        <th>Страх потери
+                            <div class="dropdown-content fears">
+                                {% for fear_to_lose in FEARS["fears_to_lose"] %}
+                                    <div>
+                                        <input id="fear_to_lose{{ loop.index }}" type="checkbox">
+                                        <label for="fear_to_lose{{ loop.index }}">{{ fear_to_lose }}</label>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </th>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        <div>
+            <label>Отрицания</label><br>
+            <button class="dropbtn">Форма отрицания</button>
+            <div class="dropdown">
+                <div id="denialsContent" class="dropdown-content">
+                    {% for denial in DENIALS %}
+                        <div>
+                            <input id="denial{{ loop.index }}" type="checkbox">
+                            <label for="denial{{ loop.index }}">{{ denial }}</label>
+                        </div>
+                    {% endfor %}  
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <label>Потребности/Мотивы</label><br>
+            <button class="dropbtn">Потребности/Мотивы</button>
+            <div>
+                <div id="needsContent" class="dropdown-content">
+                    {% for need1 in NEEDS[1] %}
+                        <div>
+                            <input id="need1{{ loop.index }}" type="checkbox">
+                            <label for="need1{{ loop.index }}">{{ need1 }}</label>
+                        </div>
+                    {% endfor %}
+                    <br>
+                    {% for need2 in NEEDS[2] %}
+                        <div>
+                            <input id="need2{{ loop.index }}" type="checkbox">
+                            <label for="need2{{ loop.index }}">{{ need2 }}</label>
+                        </div>
+                    {% endfor %}
+                    <br>
+                    {% for need3 in NEEDS[3] %}
+                        <div>
+                            <input id="need3{{ loop.index }}" type="checkbox">
+                            <label for="need3{{ loop.index }}">{{ need3 }}</label>
+                        </div>
+                    {% endfor %}
+                    <br>
+                    {% for need4 in NEEDS[4] %}
+                        <div>
+                            <input id="need4{{ loop.index }}" type="checkbox">
+                            <label for="need4{{ loop.index }}">{{ need4 }}</label>
+                        </div>
+                    {% endfor %}
+                    <br>
+                    {% for need5 in NEEDS[5] %}
+                        <div>
+                            <input id="need5{{ loop.index }}" type="checkbox">
+                            <label for="need5{{ loop.index }}">{{ need5 }}</label>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <label>Роль</label><br>
+            <button class="dropbtn">Роль</button>
+            <div>
+                <div id="rolesContent" class="dropdown-content">
+                        <div>
+                            <input id="role1" type="checkbox">
+                            <label for="role1">Агрессор</label>
+                        </div>
+                        <div>
+                            <input id="role2" type="checkbox">
+                            <label for="role2">Жертва</label>
+                        </div>
+                        <div>
+                            <input id="role3" type="checkbox">
+                            <label for="role3">Спасатель</label>
+                        </div>
+                </div>
+            </div>
+        </div>
+        
+        <label>Коррекция</label><br>
+        <input type="text" name="correction" placeholder="Коррекция"><br>
+
+        <label>Выравнивающая мысль</label><br>
+        <input type="text" name="correctionThought" placeholder="Выравнивающая мысль"><br>
+
+        <div>
+            <label>Духовные принципы</label><br>
+            <button class="dropbtn">Духовные принципы</button>
+            <div>
+                <div id="principleContent" class="dropdown-content">
+                    {% for principle in PRINCIPLES %}
+                        <div>
+                            <input id="principle{{ loop.index }}" type="checkbox">
+                            <label for="principle{{ loop.index }}">{{ principle }}</label>
+                        </div>
+                    {% endfor %}  
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <label>Черты характера</label><br>
+            <button class="dropbtn">Черты характера</button>
+            <div class="dropdown">
+                <div id="denialsContent" class="dropdown-content">
+                    {% for denial in DENIALS %}
+                        <div>
+                            <input id="denial{{ loop.index }}" type="checkbox">
+                            <label for="denial{{ loop.index }}">{{ denial }}</label>
+                        </div>
+                    {% endfor %}  
+                </div>
+            </div>
+        </div>
+    </form>
     
     <script>
         const inputs = document.getElementsByTagName('input');
@@ -257,6 +366,14 @@
 
                     else if(this.name === 'thought') {
                         this.placeholder = 'Мысль'
+                    }
+
+                    else if(this.name === 'correction') {
+                        this.placeholder = 'Коррекция'
+                    }
+
+                    else if(this.name === 'correctionThought') {
+                        this.placeholder = 'Выравнивающая мысль'
                     }
                 }
             });
@@ -337,6 +454,36 @@
             else denialsContent.style.display = 'none';
         });
 
+        const needsButton = buttons[4];
+        const needsContent = document.querySelectorAll('.dropdown-content#needsContent')[0];
+        // Add a click event listener to the button
+        needsButton.addEventListener('click', function(event) {
+            // Toggle the 'clicked' class on button click
+            event.preventDefault();
+            if (needsContent.style.display == 'none') needsContent.style.display = 'block';
+            else needsContent.style.display = 'none';
+        });
+
+        const rolesButton = buttons[5];
+        const rolesContent = document.querySelectorAll('.dropdown-content#rolesContent')[0];
+        // Add a click event listener to the button
+        rolesButton.addEventListener('click', function(event) {
+            // Toggle the 'clicked' class on button click
+            event.preventDefault();
+            if (rolesContent.style.display == 'none') rolesContent.style.display = 'block';
+            else rolesContent.style.display = 'none';
+        });
+
+        const principlesButton = buttons[6];
+        const principlesContent = document.querySelectorAll('.dropdown-content#principleContent')[0];
+        // Add a click event listener to the button
+        principlesButton.addEventListener('click', function(event) {
+            // Toggle the 'clicked' class on button click
+            event.preventDefault();
+            if (principlesContent.style.display == 'none') principlesContent.style.display = 'block';
+            else principlesContent.style.display = 'none';
+        });
+
         // Prevent closing when clicking inside the dropdowns
         dropContents.forEach(dropdown => {
                 dropdown.addEventListener('click', function(event) {
@@ -371,11 +518,25 @@
                 denialsContent.style.display = 'none';
             }
 
-            if (!fearsContent.contains(event.target) &&!fearsButton.contains(event.target)) {
+            if (!fearsContent.contains(event.target) && !fearsButton.contains(event.target)) {
                 fearsContent.style.display = 'none';
+            }
+            
+            if (!needsContent.contains(event.target) && !needsButton.contains(event.target)) {
+                needsContent.style.display = 'none';
+            }
+
+            if (!rolesContent.contains(event.target) && !rolesButton.contains(event.target)) {
+                rolesContent.style.display = 'none';
+            }
+            
+            if (!principlesContent.contains(event.target) &&!principlesButton.contains(event.target)) {
+                principlesContent.style.display = 'none';
             }
         });
     </script>
+    <p><img width="150" height="200" style="border-radius: 50%;" src="{{ url_for('static', filename='spencer.jpg') }}"></p>
+    <P style="position: absolute; left: 50%; font-family: sans-serif;">Lev &amp; Shamil</p>
 </body>
 </html>
 
