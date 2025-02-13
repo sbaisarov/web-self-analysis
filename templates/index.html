@@ -33,8 +33,9 @@
             color: white;
         }
 
-        .dropdown-content table {
+        table {
             border-collapse: collapse;
+            border-style: none;
         }
 
         .feelings {
@@ -55,6 +56,10 @@
             text-align: left;
             position: absolute;
             z-index: 1;
+        }
+
+        .flaws, #feelingsContent, #fearsContent, #denialsContent, #needsContent, #rolesContent, #principleContent {
+            position: relative;
         }
 
         label {
@@ -141,7 +146,7 @@
 
             .feelings, .fears {
                 font-size: 12px;
-                mind-width: 150px;
+                min-width: 150px;
             }
         }
 
@@ -157,7 +162,7 @@
         <button class="dropbtn">Чувства</button>
         <div>
             <div id="feelingsContent" class="dropdown-content">
-                <table style="border: 1px solid black;">
+                <table>
                     <tr>
                         <th id="fear">
                             Страх
@@ -244,7 +249,7 @@
         <div>
             <label>Страхи</label><br>
             <button class="dropbtn">Страхи</button>
-            <div id="fearContent" class="dropdown-content">
+            <div id="fearsContent" class="dropdown-content">
                 <table>
                     <tr>
                         <th>Страх
@@ -484,7 +489,7 @@
         });
 
         const fearsButton = buttons[2];
-        const fearsContent = document.querySelectorAll('.dropdown-content#fearContent')[0];
+        const fearsContent = document.querySelectorAll('.dropdown-content#fearsContent')[0];
         // Add a click event listener to the button
         fearsButton.addEventListener('click', function(event) {
             // Toggle the 'clicked' class on button click
@@ -493,7 +498,7 @@
             else fearsContent.style.display = 'none';
         });
         
-        const thElementsFears = document.querySelectorAll('#fearContent th');
+        const thElementsFears = document.querySelectorAll('#fearsContent th');
         let dropContentsFears = document.querySelectorAll('.dropdown-content.fears');
 
         thElementsFears.forEach((th, index) => {
