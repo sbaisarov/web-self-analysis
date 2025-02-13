@@ -149,7 +149,7 @@
             }
 
             .feelings, .fears {
-                font-size: 12px;
+                font-size: 16px;
                 min-width: 180px;
             }
         }
@@ -233,7 +233,7 @@
             <div id="flawsContent">
                 {% for flaw in FLAWS %}
                     <div>
-                        <input id="flaw{{ loop.index }}" type="checkbox">
+                        <input name="flaw{{ loop.index }}"  value="{{ flaw }}" id="flaw{{ loop.index }}" type="checkbox">
                         <label for="flaw{{ loop.index }}">{{ flaw }}</label>
                     </div>
                 {% endfor %}
@@ -296,7 +296,7 @@
                 <div id="denialsContent" class="dropdown-content">
                     {% for denial in DENIALS %}
                         <div>
-                            <input id="denial{{ loop.index }}" type="checkbox">
+                            <input name="denial{{ loop.index }}" value="{{ denial }}" id="denial{{ loop.index }}" type="checkbox">
                             <label for="denial{{ loop.index }}">{{ denial }}</label>
                         </div>
                     {% endfor %}  
@@ -590,6 +590,27 @@
                 principlesContent.style.display = 'none';
             }
         });
+
+        document.querySelector('form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            
+            fetch('/process', {
+                method: 'POST',
+                body: new FormData(this)
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Create a temprorary textarea elemenet
+                const tempTextArea = document.createElement('textarea');
+                tempTextArea.value = data.formatted_string;
+                document.body.appendChild(tempTextArea);
+                tempTextArea.select();
+                document.execCommand('copy');
+                document.body.removeChild(tempTextArea);
+                alert('Скопировано!');
+            })
+            .catch (error => console.log(error))
+        })
     </script>
     <p><img width="150" height="200" style="position: relative; left: 50%; border-radius: 50%;" src="{{ url_for('static', filename='spencer.jpg') }}"></p>
     <P style="position: relative; left: 50%; font-family: monospace; font-size: 14px;">Lev &amp; Shamil</p>

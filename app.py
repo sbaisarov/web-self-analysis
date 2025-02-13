@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, jsonify
 
 app = Flask(__name__)
 FEAR = []
@@ -92,32 +92,33 @@ def process():
         "principles": [data[key] for key in data if key.startswith("principle")],
         "traits": [data[key] for key in data if key.startswith("trait")]
     }
+    print(response)
     
     formatted_string = f"""
-        Ситуация: {response['situation']}
+Ситуация: {response['situation']}
 
-        Чувства: {', '.join(response['feelings'])}
+Чувства: {', '.join(response['feelings'])}
 
-        Мысль: {response['thought']}
+Мысль: {response['thought']}
 
-        Дефекты: {', '.join(response['flaws'])}
+Дефекты: {', '.join(response['flaws'])}
 
-        Страхи: {', '.join(response['fears'])}
+Страхи: {', '.join(response['fears'])}
 
-        Отрицания: {', '.join(response['denials'])}
+Отрицания: {', '.join(response['denials'])}
 
-        Потребности/Мотивы: {', '.join(response['needs'])}
+Потребности/Мотивы: {', '.join(response['needs'])}
 
-        Роль: {', '.join(response['role'])}
+Роль: {', '.join(response['role'])}
 
-        Коррекция: {response['correction']}
+Коррекция: {response['correction']}
 
-        Выравнивающая мысль: {response['correctionThought']}
+Выравнивающая мысль: {response['correctionThought']}
 
-        Духовные принципы: {', '.join(response['principles'])}
+Духовные принципы: {', '.join(response['principles'])}
 
-        Черты характера: {', '.join(response['traits'])}
-    """
-    return formatted_string.strip()
+Черты характера: {', '.join(response['traits'])}
+"""
+    return jsonify({"formatted_string": formatted_string.strip()})
 
 app.run(reload=True)
