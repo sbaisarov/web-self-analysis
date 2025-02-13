@@ -29,6 +29,11 @@
             position: relative;
         }
 
+        .dropdown-content label {
+            margin: 0;
+            display: inline;
+        }
+
         .dropdown-content th:hover {
             color: white;
         }
@@ -86,7 +91,6 @@
             border: none;
             border-radius: 4px;
             cursor: pointer;
-            
             padding: 1em;
             margin: 0, 20px;
         }
@@ -146,7 +150,7 @@
 
             .feelings, .fears {
                 font-size: 12px;
-                min-width: 150px;
+                min-width: 180px;
             }
         }
 
@@ -163,7 +167,6 @@
         <div>
             <div id="feelingsContent" class="dropdown-content">
                 <table>
-                    <tr>
                         <th id="fear">
                             Страх
                             <div class="dropdown-content feelings">
@@ -175,8 +178,6 @@
                                 {% endfor %}
                             </div>
                         </th>
-                    </tr>
-                    <tr>
                         <th id="sadness">
                             Грусть
                             <div class="dropdown-content feelings">
@@ -188,8 +189,6 @@
                                 {% endfor %}
                             </div>
                         </th>
-                    </tr>
-                    <tr>
                         <th id="anger">
                             Гнев
                             <div class="dropdown-content feelings">
@@ -201,8 +200,6 @@
                                 {% endfor %}
                             </div>
                         </th>
-                    </tr>
-                    <tr>
                         <th id="joy">
                             Радость
                             <div class="dropdown-content feelings">
@@ -214,8 +211,6 @@
                                 {% endfor %}
                             </div>
                         </th>
-                    </tr>
-                    <tr>
                         <th id="happiness">
                             Любовь
                             <div class="dropdown-content feelings">
@@ -227,7 +222,6 @@
                                 {% endfor %}
                             </div>
                         </th>
-                    </tr>
                 </table>
             </div>
         </div>
@@ -251,7 +245,6 @@
             <button class="dropbtn">Страхи</button>
             <div id="fearsContent" class="dropdown-content">
                 <table>
-                    <tr>
                         <th>Страх
                             <div class="dropdown-content fears">
                                 {% for fear in FEARS["fears"] %}
@@ -262,8 +255,6 @@
                                 {% endfor %}
                             </div>
                         </th>
-                    </tr>
-                    <tr>
                         <th>Страх быть
                             <div class="dropdown-content fears">
                                 {% for fear_to_be in FEARS["fears_to_be"] %}
@@ -274,8 +265,6 @@
                                 {% endfor %}
                             </div>
                         </th>
-                    </tr>
-                    <tr>
                         <th>Страх показаться
                             <div class="dropdown-content fears">
                                 {% for fear_to_seem in FEARS["fears_to_seem"] %}
@@ -286,8 +275,6 @@
                                 {% endfor %}
                             </div>
                         </th>
-                    </tr>
-                    <tr>
                         <th>Страх потери
                             <div class="dropdown-content fears">
                                 {% for fear_to_lose in FEARS["fears_to_lose"] %}
@@ -298,7 +285,6 @@
                                 {% endfor %}
                             </div>
                         </th>
-                    </tr>
                 </table>
             </div>
         </div>
