@@ -124,7 +124,7 @@
             display: block;
         }
 
-        @media screen and (min-width: 600px) {
+        @media screen and (min-device-width: 350px) {
             form {
                 width: 95%;
                 margin: 0 auto;
@@ -155,10 +155,10 @@
         }
 
     </style>
+    <meta name="viewport" content="width=device-width" initial-scale="1.0">
 </head>
 <body>
-    <p style="font-family: cursive;">Герберт спенсер однажды сказал...
-    </p>
+    <p style="font-family: cursive;">Герберт спенсер однажды сказал...</p>
     <form action='/process' method="post">
         <label>Ситуация:</label><br>
         <input type="text" name="situation" placeholder="Опишите Ситуацию"><br>

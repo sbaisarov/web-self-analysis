@@ -72,7 +72,7 @@ def main():
     return render_template('index.html', FEAR=FEAR, SADNESS=SADNESS, ANGER=ANGER,
                            JOY=JOY, HAPPINESS=HAPPINESS, FLAWS=FLAWS, FEARS=FEARS, DENIALS=DENIALS,
                            NEEDS=NEEDS, PRINCIPLES=PRINCIPLES)
-    
+
 @app.route('/process', methods=['POST'])
 def process():
     # parse data and return structured data for clipboard
@@ -92,32 +92,36 @@ def process():
         "principles": [data[key] for key in data if key.startswith("principle")],
         "traits": [data[key] for key in data if key.startswith("trait")]
     }
-    print(response)
     
+    for key in response.keys():
+        lst = response[key]
+        response[key] = [value.lower() for value in lst]
+            
+    print(response)
     formatted_string = f"""
-Ситуация: {response['situation']}
+C.: {response['situation']}
 
-Чувства: {', '.join(response['feelings'])}
+Ч.: {', '.join(response['feelings'])}
 
-Мысль: {response['thought']}
+М.: {response['thought']}
 
-Дефекты: {', '.join(response['flaws'])}
+Д.: {', '.join(response['flaws'])}
 
-Страхи: {', '.join(response['fears'])}
+Стр.: {', '.join(response['fears'])}
 
-Отрицания: {', '.join(response['denials'])}
+О.: {', '.join(response['denials'])}
 
-Потребности/Мотивы: {', '.join(response['needs'])}
+П./М.: {', '.join(response['needs'])}
 
-Роль: {', '.join(response['role'])}
+Р.: {', '.join(response['role'])}
 
-Коррекция: {response['correction']}
+К.: {response['correction']}
 
-Выравнивающая мысль: {response['correctionThought']}
+В/М.: {response['correctionThought']}
 
-Духовные принципы: {', '.join(response['principles'])}
+Д/П.: {', '.join(response['principles'])}
 
-Черты характера: {', '.join(response['traits'])}
+Ч./Х.: {', '.join(response['traits'])}
 """
     return jsonify({"formatted_string": formatted_string.strip()})
 
