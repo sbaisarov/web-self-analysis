@@ -94,11 +94,12 @@ def process():
     }
     
     for key in response.keys():
-        lst = response[key]
-        response[key] = [value.lower() for value in lst]
+        result = response[key]
+        if isinstance(result, list):
+            response[key] = [value.lower() for value in result]
             
-    print(response)
     formatted_string = f"""
+    
 C.: {response['situation']}
 
 Ч.: {', '.join(response['feelings'])}
