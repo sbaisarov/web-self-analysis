@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Корректировачный самоанализ РЦ &lt&ltЭволюция&gt&gt</title>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style>
+            
+            body {
+            }
+            
+            .container {
+                max-width: 50px;
+            }
+
+            label {
+                font-size: 18px;
+            }
+
+            input[type=radio] {
+                padding: 12px 20px;
+                margin-bottom: 10px;
+                margin-top: 10px;
+                font-size: 16px;
+                cursor: pointer;
+            }
+
+            input[type=submit] {
+                margin-top: 10px;
+                padding: 10px;
+                background-color: #4CAF50;
+                color: white;
+                border: none;
+                cursor: pointer;
+                width: 100%;
+                text-align: center;
+                text-decoration: none;
+                display: inline-block;
+                font-size: 16px;
+            }
+        </style>
+    </head>
+        <body>
+            <label>Введите количество ситуаций:</label>
+        <form action="/create">
+            <div class="container">
+                <input type="radio" name="snum" id="1" value="1"></input>
+                <label for="1">1</label><br><br>
+                <input type="radio" name="snum" id="2" value="2"></input>
+                <label for="2">2</label><br><br>
+                <input type="radio" name="snum" id="3" value="3"></input>
+                <label for="3">3</label><br><br>
+                <input type="radio" name="snum" id="4" value="4"></input>
+                <label for="4">4</label><br><br>
+                <input type="radio" name="snum" id="5" value="5"></input>
+                <label for="5">5</label><br><br>
+            </div>
+            <input type="submit" value="Начать"></button>
+        </form>
+        </body>
+</html>

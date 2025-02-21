@@ -67,11 +67,16 @@ with open("static/principles.txt", "r", encoding="utf-8") as f:
 
 fulfill(principles, PRINCIPLES, 1)
 
-@app.route('/')
+@app.route('/create')
 def main():
+    snum = request.args.get('snum')
     return render_template('index.html', FEAR=FEAR, SADNESS=SADNESS, ANGER=ANGER,
                            JOY=JOY, HAPPINESS=HAPPINESS, FLAWS=FLAWS, FEARS=FEARS, DENIALS=DENIALS,
                            NEEDS=NEEDS, PRINCIPLES=PRINCIPLES)
+    
+@app.route('/')
+def introductory():
+    return render_template('introduction.html')
 
 @app.route('/process', methods=['POST'])
 def process():
@@ -92,6 +97,8 @@ def process():
         "principles": [data[key] for key in data if key.startswith("principle")],
         "traits": [data[key] for key in data if key.startswith("trait")]
     }
+    
+
     
     for key in response.keys():
         result = response[key]
@@ -115,7 +122,7 @@ C.: {response['situation']}
 П./М.: {', '.join(response['needs'])}
 
 Р.: {', '.join(response['role'])}
-
+    
 К.: {response['correction']}
 
 В/М.: {response['correctionThought']}
