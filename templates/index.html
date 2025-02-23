@@ -167,9 +167,9 @@
 <body>
     <p style="font-family: cursive;">Герберт спенсер однажды сказал...</p>
     <form action='/process' method="post">
-        <label>Ситуация:</label><br>
+        <label>Ситуация ({{ current }} из {{ total }}):</label><br>
         <input type="text" name="situation" placeholder="Опишите Ситуацию"><br>
-        <label data-target="feelings">Чувства</label><br>
+        <label data-target="feelings">Чувства: </label><br>
         <button class="dropbtn">Чувства</button>
         <div>
             <div id="feelingsContent" class="dropdown-content">
@@ -234,7 +234,7 @@
         </div>
         <label>Мысль</label><br>
         <input type="text" name="thought" placeholder="Мысль"><br>
-        <label data-target="flaws">Дефекты</label><br>
+        <label data-target="flaws">Дефекты: </label><br>
         <button class="dropbtn">Дефекты</button>
         <div class="dropdown-content flaws">
             <div id="flawsContent">
@@ -248,7 +248,7 @@
         </div>
 
         <div>
-            <label data-target="fears">Страхи</label><br>
+            <label data-target="fears">Страхи: </label><br>
             <button class="dropbtn">Страхи</button>
             <div id="fearsContent" class="dropdown-content">
                 <table>
@@ -266,8 +266,8 @@
                             <div class="dropdown-content fears">
                                 {% for fear_to_be in FEARS["fears_to_be"] %}
                                     <div>
-                                        <input name="fear_to_be{{ loop.index }}" value="{{ fear_to_be }}" id="fear_to_be{{ loop.index }}" type="checkbox">
-                                        <label for="fear_to_be{{ loop.index }}">{{ fear_to_be }}</label>
+                                        <input name="fear_to_be{{ loop.index }}" value="быть {{ fear_to_be }}" id="fear_to_be{{ loop.index }}" type="checkbox">
+                                        <label for="fear_to_be{{ loop.index }}">быть {{ fear_to_be }}</label>
                                     </div>
                                 {% endfor %}
                             </div>
@@ -276,8 +276,8 @@
                             <div class="dropdown-content fears">
                                 {% for fear_to_seem in FEARS["fears_to_seem"] %}
                                     <div>
-                                        <input name="fear_to_seem{{ loop.index }}" value="{{ fear_to_seem }}" id="fear_to_seem{{ loop.index }}" type="checkbox">
-                                        <label for="fear_to_seem{{ loop.index }}">{{ fear_to_seem }}</label>
+                                        <input name="fear_to_seem{{ loop.index }}" value="показаться {{ fear_to_seem }}" id="fear_to_seem{{ loop.index }}" type="checkbox">
+                                        <label for="fear_to_seem{{ loop.index }}">показаться {{ fear_to_seem }}</label>
                                     </div>
                                 {% endfor %}
                             </div>
@@ -286,8 +286,8 @@
                             <div class="dropdown-content fears">
                                 {% for fear_to_lose in FEARS["fears_to_lose"] %}
                                     <div>
-                                        <input name="fear_to_lose{{ loop.index }}" value="{{ fear_to_lose }}" id="fear_to_lose{{ loop.index }}" type="checkbox">
-                                        <label for="fear_to_lose{{ loop.index }}">{{ fear_to_lose }}</label>
+                                        <input name="fear_to_lose{{ loop.index }}" value="потери {{ fear_to_lose }}" id="fear_to_lose{{ loop.index }}" type="checkbox">
+                                        <label for="fear_to_lose{{ loop.index }}">потери {{ fear_to_lose }}</label>
                                     </div>
                                 {% endfor %}
                             </div>
@@ -297,7 +297,7 @@
         </div>
 
         <div>
-            <label data-target="denials">Отрицания</label><br>
+            <label data-target="denials">Отрицания: </label><br>
             <button class="dropbtn">Форма отрицания</button>
             <div class="dropdown">
                 <div id="denialsContent" class="dropdown-content denials">
@@ -312,7 +312,7 @@
         </div>
 
         <div>
-            <label data-target="needs">Потребности/Мотивы</label><br>
+            <label data-target="needs">Потребности/Мотивы: </label><br>
             <button class="dropbtn">Потребности/Мотивы</button>
             <div>
                 <div id="needsContent" class="dropdown-content needs">
@@ -355,7 +355,7 @@
         </div>
 
         <div>
-            <label data-target="roles">Роль</label><br>
+            <label data-target="roles">Роль: </label><br>
             <button class="dropbtn">Роль</button>
             <div>
                 <div id="rolesContent" class="dropdown-content roles">
@@ -382,7 +382,7 @@
         <input type="text" name="correctionThought" placeholder="Выравнивающая мысль"><br>
 
         <div>
-            <label data-target="principles">Духовные принципы</label><br>
+            <label data-target="principles">Духовные принципы: </label><br>
             <button class="dropbtn">Духовные принципы</button>
             <div>
                 <div id="principleContent" class="dropdown-content principles">

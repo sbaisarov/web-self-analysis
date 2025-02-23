@@ -42,17 +42,17 @@
     </head>
         <body>
             <label>Введите количество ситуаций:</label>
-        <form action="/create">
+        <form action="{{ url_for('count') }}">
             <div class="container">
-                <input type="radio" name="snum" id="1" value="1"></input>
+                <input type="radio" name="total" id="1" value="1"></input>
                 <label for="1">1</label><br><br>
-                <input type="radio" name="snum" id="2" value="2"></input>
+                <input type="radio" name="total" id="2" value="2"></input>
                 <label for="2">2</label><br><br>
-                <input type="radio" name="snum" id="3" value="3"></input>
+                <input type="radio" name="total" id="3" value="3"></input>
                 <label for="3">3</label><br><br>
-                <input type="radio" name="snum" id="4" value="4"></input>
+                <input type="radio" name="total" id="4" value="4"></input>
                 <label for="4">4</label><br><br>
-                <input type="radio" name="snum" id="5" value="5"></input>
+                <input type="radio" name="total" id="5" value="5"></input>
                 <label for="5">5</label><br><br>
             </div>
             <input type="submit" value="Начать"></button>

@@ -184,7 +184,6 @@ document.addEventListener('click', function(event) {
 
 document.querySelector('form').addEventListener('submit', function(event) {
     event.preventDefault();
-    
     fetch('/process', {
         method: 'POST',
         body: new FormData(this)
@@ -199,13 +198,15 @@ document.querySelector('form').addEventListener('submit', function(event) {
         document.execCommand('copy');
         document.body.removeChild(tempTextArea);
         alert('Скопировано!');
+        window.location.href = '/';
     })
     .catch (error => console.log(error))
-
+    
     // get all the data from the form
     let formData = new FormData(event.target);
     let formObject = Object.fromEntries(formData.entries());
     
+    location.reload();
     // add form data to local storage
     setCookie('formData', JSON.stringify(formObject), new Date(new Date().getTime() + 365 * 24 * 60 * 60 * 1000));
 })
@@ -275,6 +276,7 @@ clearButton.addEventListener('click', function(event) {
     location.reload();
 });
 
+
 document.querySelectorAll('input[type=checkbox]').forEach(checkbox => {
     checkbox.addEventListener('change', function() {
         if (checkbox.checked) {
@@ -296,6 +298,7 @@ function appendCheckboxValue(checkbox) {
     let label = document.querySelector(`label[data-target=${className}]`);
     let div = document.createElement('div');
     let text = document.createTextNode(checkbox.value);
+
     div.appendChild(text);
     div.style = "margin-top: 5px; font-size: 12px; font-weight: bold";
     div.setAttribute("data-target", "appended");

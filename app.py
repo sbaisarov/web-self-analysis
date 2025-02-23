@@ -1,6 +1,8 @@
-from flask import Flask, render_template, request, jsonify
+from flask import Flask, render_template, request, jsonify, session, url_for, redirect
 
 app = Flask(__name__)
+app.secret_key = b'_5#y2L"F4Q8z\n\xec]/' # just to make session work
+
 FEAR = []
 SADNESS = []
 ANGER = []
@@ -12,6 +14,9 @@ DENIALS = ["Простое отрицание", "Минимализация", "�
            "Фантазия", "Обвинение", "Отвлечение внимания", "Приукрашивание воспоминаний", "Планирование желаемого"]
 NEEDS = {1: [], 2: [], 3: [], 4: [], 5: []}
 PRINCIPLES = []
+formatted_string = ""
+global formatted_result
+formatted_result = ""
 
 def fulfill(collection_in, collection_out, br_n):
     cnt = 0 # count of break lines 
@@ -69,10 +74,19 @@ fulfill(principles, PRINCIPLES, 1)
 
 @app.route('/create')
 def main():
-    snum = request.args.get('snum')
+    total = session['total']
+    current = session['current']
+    if (current > total):
+        return redirect(url_for('introductory'))
     return render_template('index.html', FEAR=FEAR, SADNESS=SADNESS, ANGER=ANGER,
-                           JOY=JOY, HAPPINESS=HAPPINESS, FLAWS=FLAWS, FEARS=FEARS, DENIALS=DENIALS,
-                           NEEDS=NEEDS, PRINCIPLES=PRINCIPLES)
+                            JOY=JOY, HAPPINESS=HAPPINESS, FLAWS=FLAWS, FEARS=FEARS, DENIALS=DENIALS,
+                            NEEDS=NEEDS, PRINCIPLES=PRINCIPLES, total=total, current=current)
+
+@app.route('/count')
+def count():
+    session['total'] = int(request.args.get('total'))
+    session['current'] = 1
+    return redirect(url_for('main'))
     
 @app.route('/')
 def introductory():
@@ -81,8 +95,18 @@ def introductory():
 @app.route('/process', methods=['POST'])
 def process():
     # parse data and return structured data for clipboard
+    global formatted_result
     data = request.form
-
+    session['current'] += 1
+    total = session['total']
+    current = session['current']
+    if current > total:
+        # reset session
+        session['total'] = 0
+        session['current'] = 1
+        formatted_result = ""
+        return jsonify({"result": formatted_result.strip()})
+    
     response = {
         "situation": data.get("situation", ""),
         "feelings": [data[key] for key in data if key.startswith("feeling")],
@@ -97,7 +121,6 @@ def process():
         "principles": [data[key] for key in data if key.startswith("principle")],
         "traits": [data[key] for key in data if key.startswith("trait")]
     }
-    
 
     
     for key in response.keys():
@@ -131,6 +154,7 @@ C.: {response['situation']}
 
 Ч./Х.: {', '.join(response['traits'])}
 """
-    return jsonify({"formatted_string": formatted_string.strip()})
+    formatted_result += formatted_string + '\n'
+    return redirect(url_for('main'))
 
-app.run(reload=True)
+app.run(debug=True)
