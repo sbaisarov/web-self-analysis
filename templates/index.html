@@ -167,7 +167,7 @@
 <body>
     <p style="font-family: cursive;">Герберт спенсер однажды сказал...</p>
     <form action='/process' method="post">
-        <label>Ситуация ({{ current }} из {{ total }}):</label><br>
+        <label>Ситуация <span id="current"></span> из {{ total }}</label><br>
         <input type="text" name="situation" placeholder="Опишите Ситуацию"><br>
         <label data-target="feelings">Чувства: </label><br>
         <button class="dropbtn">Чувства</button>

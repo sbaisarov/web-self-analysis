@@ -1,7 +1,8 @@
+import os
 from flask import Flask, render_template, request, jsonify, session, url_for, redirect
 
 app = Flask(__name__)
-app.secret_key = b'_5#y2L"F4Q8z\n\xec]/' # just to make session work
+app.secret_key = os.urandom(24)
 
 FEAR = []
 SADNESS = []
@@ -80,7 +81,7 @@ def main():
         return redirect(url_for('introductory'))
     return render_template('index.html', FEAR=FEAR, SADNESS=SADNESS, ANGER=ANGER,
                             JOY=JOY, HAPPINESS=HAPPINESS, FLAWS=FLAWS, FEARS=FEARS, DENIALS=DENIALS,
-                            NEEDS=NEEDS, PRINCIPLES=PRINCIPLES, total=total, current=current)
+                            NEEDS=NEEDS, PRINCIPLES=PRINCIPLES, total=total)
 
 @app.route('/count')
 def count():
@@ -104,7 +105,6 @@ def process():
         # reset session
         session['total'] = 0
         session['current'] = 1
-        formatted_result = ""
         return jsonify({"result": formatted_result.strip()})
     
     response = {

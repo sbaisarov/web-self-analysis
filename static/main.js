@@ -1,3 +1,7 @@
+let current = 1;
+const currentId = document.querySelector('#current');
+currentId.textContent = current;
+
 const inputs = document.getElementsByTagName('input');
         
 for (const input of inputs) {
@@ -183,6 +187,8 @@ document.addEventListener('click', function(event) {
 });
 
 document.querySelector('form').addEventListener('submit', function(event) {
+    current++;
+    currentId.textContent = current;
     event.preventDefault();
     fetch('/process', {
         method: 'POST',
@@ -190,15 +196,13 @@ document.querySelector('form').addEventListener('submit', function(event) {
     })
     .then(response => response.json())
     .then(data => {
-        // Create a temprorary textarea elemenet
-        const tempTextArea = document.createElement('textarea');
-        tempTextArea.value = data.formatted_string;
-        document.body.appendChild(tempTextArea);
-        tempTextArea.select();
-        document.execCommand('copy');
-        document.body.removeChild(tempTextArea);
-        alert('Скопировано!');
-        window.location.href = '/';
+        // Copy the result to the clipboard
+        navigator.clipboard.writeText(data.result)
+            .then(() => {
+                alert('Скопировано!');
+                window.location.href = '/';
+            })
+            .catch(error => console.log(error));
     })
     .catch (error => console.log(error))
     
@@ -206,9 +210,10 @@ document.querySelector('form').addEventListener('submit', function(event) {
     let formData = new FormData(event.target);
     let formObject = Object.fromEntries(formData.entries());
     
-    location.reload();
     // add form data to local storage
     setCookie('formData', JSON.stringify(formObject), new Date(new Date().getTime() + 365 * 24 * 60 * 60 * 1000));
+    window.scrollTo(0, 0);
+    clearContent();
 })
 
 function setCookie(cname, cvalue, expires) {
@@ -253,28 +258,27 @@ window.onload = function() {
     });
 };
 
-const clearButton = document.querySelector('#clear');
-
-clearButton.addEventListener('click', function(event) {
-    event.preventDefault();
+function clearContent() {
     document.querySelectorAll('input[type="text"], input[type="checkbox"]').forEach(item => {
-        item.value = '';
+        if (item.type === 'text') {
+            item.value = '';
+        }
         if (item.type === "checkbox") {
             item.checked = false;
         }
     });
+
     document.querySelectorAll('.dropdown-content').forEach(content => {
         content.classList.remove('active');
     });
+
     setCookie('formData', '', new Date(0));
 
     const appended = document.querySelectorAll('div[data-target="appended"]');
     appended.forEach(div => {
         div.parentNode.removeChild(div);
     });
-    // reload the page
-    location.reload();
-});
+}
 
 
 document.querySelectorAll('input[type=checkbox]').forEach(checkbox => {
