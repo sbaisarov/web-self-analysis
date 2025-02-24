@@ -197,7 +197,8 @@ document.querySelector('form').addEventListener('submit', function(event) {
     .then(response => response.json())
     .then(data => {
         // Copy the result to the clipboard
-        navigator.clipboard.writeText(data.result)
+        navigator.clipboard.writeText('')
+            .then(() => navigator.clipboard.writeText(data.result))
             .then(() => {
                 alert('Скопировано!');
                 window.location.href = '/';
@@ -301,7 +302,7 @@ function appendCheckboxValue(checkbox) {
     let className = checkbox.closest('.dropdown-content').classList[1];
     let label = document.querySelector(`label[data-target=${className}]`);
     let div = document.createElement('div');
-    let text = document.createTextNode(checkbox.value);
+    let text = document.createTextNode(checkbox.value.toLowerCase());
 
     div.appendChild(text);
     div.style = "margin-top: 5px; font-size: 12px; font-weight: bold";

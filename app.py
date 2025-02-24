@@ -16,8 +16,6 @@ DENIALS = ["Простое отрицание", "Минимализация", "�
 NEEDS = {1: [], 2: [], 3: [], 4: [], 5: []}
 PRINCIPLES = []
 formatted_string = ""
-global formatted_result
-formatted_result = ""
 
 def fulfill(collection_in, collection_out, br_n):
     cnt = 0 # count of break lines 
@@ -96,16 +94,10 @@ def introductory():
 @app.route('/process', methods=['POST'])
 def process():
     # parse data and return structured data for clipboard
-    global formatted_result
     data = request.form
     session['current'] += 1
-    total = session['total']
-    current = session['current']
-    if current > total:
-        # reset session
-        session['total'] = 0
-        session['current'] = 1
-        return jsonify({"result": formatted_result.strip()})
+    if 'formatted_result' not in session:
+        session['formatted_result'] = ""
     
     response = {
         "situation": data.get("situation", ""),
@@ -145,7 +137,7 @@ C.: {response['situation']}
 П./М.: {', '.join(response['needs'])}
 
 Р.: {', '.join(response['role'])}
-    
+
 К.: {response['correction']}
 
 В/М.: {response['correctionThought']}
@@ -154,7 +146,19 @@ C.: {response['situation']}
 
 Ч./Х.: {', '.join(response['traits'])}
 """
-    formatted_result += formatted_string + '\n'
+    session["formatted_result"] += formatted_string + '\n'
+    session.modified = True
+    
+    total = session['total']
+    current = session['current']
+    if current > total:
+        # reset session
+        session['total'] = 0
+        session['current'] = 1
+        fresult = session["formatted_result"]
+        session["formatted_result"] = ""
+        return jsonify({"result": fresult.strip()})
+    
     return redirect(url_for('main'))
 
 app.run(debug=True)
