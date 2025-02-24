@@ -200,8 +200,13 @@ document.querySelector('form').addEventListener('submit', function(event) {
         navigator.clipboard.writeText('')
             .then(() => navigator.clipboard.writeText(data.result))
             .then(() => {
-                alert('Скопировано!');
-                window.location.href = '/';
+                showModal('Скопировано в буфер обмена!');
+                current --;
+                currentId.textContent = current;
+                setTimeout(() => {
+                    clearContent();
+                    window.location.href = '/';
+                }, 2000);
             })
             .catch(error => console.log(error));
     })
@@ -216,6 +221,34 @@ document.querySelector('form').addEventListener('submit', function(event) {
     window.scrollTo(0, 0);
     clearContent();
 })
+
+function showModal(message) {
+    const modal = document.createElement('div');
+    modal.style.position = 'fixed';
+    modal.style.left = '0';
+    modal.style.top = '0';
+    modal.style.width = '100%';
+    modal.style.height = '100%';
+    modal.style.backgroundColor = 'rgba(0,0,0,0.5)';
+    modal.style.display = 'flex';
+    modal.style.justifyContent = 'center';
+    modal.style.alignItems = 'center';
+    modal.style.zIndex = '1000';
+
+    const modalContent = document.createElement('div');
+    modalContent.style.backgroundColor = '#fff';
+    modalContent.style.padding = '20px';
+    modalContent.style.borderRadius = '5px';
+    modalContent.style.textAlign = 'center';
+
+    const messageElement = document.createElement('p');
+    messageElement.textContent = message;
+
+    modalContent.appendChild(messageElement);
+    modal.appendChild(modalContent);
+    document.body.appendChild(modal);
+
+}
 
 function setCookie(cname, cvalue, expires) {
     let d = new Date();
