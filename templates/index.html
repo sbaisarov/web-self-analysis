@@ -63,7 +63,7 @@
             z-index: 1;
         }
 
-        .flaws, #feelingsContent, #fearsContent, #denialsContent, #needsContent, #rolesContent, #principleContent {
+        .flaws, #feelingsContent, #fearsContent, #denialsContent, #needsContent, #rolesContent, #principleContent, #traitsContent {
             position: relative;
         }
 
@@ -236,8 +236,8 @@
         <input type="text" name="thought" placeholder="Мысль"><br>
         <label data-target="flaws">Дефекты: </label><br>
         <button class="dropbtn">Дефекты</button>
+        <div id="flawsContent">
         <div class="dropdown-content flaws">
-            <div id="flawsContent">
                 {% for flaw in FLAWS %}
                     <div>
                         <input name="flaw{{ loop.index }}"  value="{{ flaw }}" id="flaw{{ loop.index }}" type="checkbox">
@@ -397,14 +397,14 @@
         </div>
 
         <div>
-            <label>Черты характера</label><br>
-            <button class="dropbtn">Черты характера</button>
+            <label data-target="traits">Черты характера: </label><br>
+            <button class="dropbtn">Черты характера: </button>
             <div class="dropdown">
-                <div id="denialsContent" class="dropdown-content">
-                    {% for denial in DENIALS %}
+                <div id="traitsContent" class="dropdown-content traits">
+                    {% for trait in TRAITS %}
                         <div>
-                            <input id="denial{{ loop.index }}" type="checkbox">
-                            <label for="denial{{ loop.index }}">{{ denial }}</label>
+                            <input name="trait{{ loop.index }}" value="{{ trait }}" id="trait{{ loop.index }}" type="checkbox">
+                            <label for="trait{{ loop.index }}">{{ trait }}</label>
                         </div>
                     {% endfor %}  
                 </div>

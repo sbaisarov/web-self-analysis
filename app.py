@@ -15,6 +15,7 @@ DENIALS = ["Простое отрицание", "Минимализация", "�
            "Фантазия", "Обвинение", "Отвлечение внимания", "Приукрашивание воспоминаний", "Планирование желаемого"]
 NEEDS = {1: [], 2: [], 3: [], 4: [], 5: []}
 PRINCIPLES = []
+TRAITS = []
 formatted_string = ""
 
 def fulfill(collection_in, collection_out, br_n):
@@ -71,6 +72,11 @@ with open("static/principles.txt", "r", encoding="utf-8") as f:
 
 fulfill(principles, PRINCIPLES, 1)
 
+with open("static/traits.txt", "r", encoding="utf-8") as f:
+    principles = [i.strip() for i in f.readlines()]
+
+fulfill(principles, TRAITS, 1)
+
 @app.route('/create')
 def main():
     total = session['total']
@@ -79,7 +85,7 @@ def main():
         return redirect(url_for('introductory'))
     return render_template('index.html', FEAR=FEAR, SADNESS=SADNESS, ANGER=ANGER,
                             JOY=JOY, HAPPINESS=HAPPINESS, FLAWS=FLAWS, FEARS=FEARS, DENIALS=DENIALS,
-                            NEEDS=NEEDS, PRINCIPLES=PRINCIPLES, total=total)
+                            NEEDS=NEEDS, PRINCIPLES=PRINCIPLES, TRAITS=TRAITS, total=total)
 
 @app.route('/count')
 def count():

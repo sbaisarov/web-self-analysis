@@ -135,6 +135,16 @@ principlesButton.addEventListener('click', function(event) {
     else principlesContent.style.display = 'none';
 });
 
+const traitsButton = buttons[7];
+const traitsContent = document.querySelectorAll('.dropdown-content#traitsContent')[0];
+// Add a click event listener to the button
+traitsButton.addEventListener('click', function(event) {
+    // Toggle the 'clicked' class on button click
+    event.preventDefault();
+    if (traitsContent.style.display == 'none') traitsContent.style.display = 'block';
+    else traitsContent.style.display = 'none';
+});
+
 // Prevent closing when clicking inside the dropdowns
 dropContents.forEach(dropdown => {
         dropdown.addEventListener('click', function(event) {
@@ -183,6 +193,10 @@ document.addEventListener('click', function(event) {
     
     if (!principlesContent.contains(event.target) && !principlesButton.contains(event.target)) {
         principlesContent.style.display = 'none';
+    }
+
+    if (!traitsContent.contains(event.target) && !traitsButton.contains(event.target)) {
+        traitsContent.style.display = 'none';
     }
 });
 
@@ -323,7 +337,7 @@ document.querySelectorAll('input[type=checkbox]').forEach(checkbox => {
         else {
             let className = checkbox.closest('.dropdown-content').classList[1];
             let label = document.querySelector(`label[data-target=${className}]`);
-            let div = Array.from(label.querySelectorAll('div')).find(div => div.textContent === checkbox.value);
+            let div = Array.from(label.querySelectorAll('div')).find(div => div.textContent === checkbox.value.toLowerCase());
             if (div) {
                 div.parentNode.removeChild(div);
             }
