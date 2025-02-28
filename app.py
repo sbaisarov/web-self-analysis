@@ -120,7 +120,6 @@ def process():
         "traits": [data[key] for key in data if key.startswith("trait")]
     }
 
-    
     for key in response.keys():
         result = response[key]
         if isinstance(result, list):
